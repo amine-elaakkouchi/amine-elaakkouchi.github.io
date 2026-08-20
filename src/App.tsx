@@ -102,6 +102,7 @@ function SectionIntro({
 
 function App() {
   const main = useRef<HTMLDivElement>(null)
+  const linkedin = portfolio.socials.find((social) => social.label === 'LinkedIn')
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
@@ -350,11 +351,28 @@ function App() {
           <div className="contact-orbit" aria-hidden="true"><span>AVAILABLE · COLLABORATE · SAY HELLO · </span></div>
           <p className="eyebrow reveal"><span className="status-dot" /> Have a world to build?</p>
           <h2 className="reveal">Let’s make<br /><em>something felt.</em></h2>
-          <MagneticLink href={`mailto:${portfolio.profile.email}`} className="contact-mail">
-            <Mail aria-hidden="true" />
-            {portfolio.profile.email}
-            <ArrowUpRight aria-hidden="true" />
-          </MagneticLink>
+          <div className="contact-actions reveal">
+            {linkedin && (
+              <a
+                href={linkedin.href}
+                className="contact-mail contact-mail--linkedin"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span className="linkedin-glyph" aria-hidden="true">in</span>
+                LinkedIn / aminelakk
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            )}
+            <MagneticLink
+              href={`mailto:${portfolio.profile.email}?subject=Portfolio inquiry`}
+              className="contact-mail contact-mail--email"
+            >
+              <Mail aria-hidden="true" />
+              Email me
+              <ArrowUpRight aria-hidden="true" />
+            </MagneticLink>
+          </div>
         </section>
       </main>
 

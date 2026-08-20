@@ -233,6 +233,7 @@ export const portfolio: PortfolioData = {
     href: 'mailto:amine.elaakkouchi@gmail.com?subject=Résumé request',
   },
   socials: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aminelakk/' },
     { label: 'GitHub', href: 'https://github.com/amine-elaakkouchi' },
   ],
 }

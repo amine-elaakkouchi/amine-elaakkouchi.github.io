@@ -837,10 +837,19 @@ ul {
   font-size: clamp(4rem, 10vw, 11rem);
 }
 
+.contact-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
 .contact-mail {
   display: flex;
   width: fit-content;
-  margin: auto;
+  margin: 0;
   align-items: center;
   gap: 1rem;
   padding: 1.2rem 1.6rem;
@@ -848,6 +857,35 @@ ul {
   border-radius: 999px;
   background: var(--surface-2);
   font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.contact-mail:hover {
+  border-color: var(--acid);
+}
+
+.contact-mail--linkedin {
+  border-color: var(--acid);
+  background: var(--acid);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.contact-mail--linkedin:hover {
+  background: var(--paper);
+}
+
+.linkedin-glyph {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 0.2rem;
+  background: var(--ink);
+  color: var(--acid);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: -0.08em;
 }
 
 .contact-orbit {
