@@ -876,6 +876,65 @@ ul {
   background: var(--paper);
 }
 
+.contact-mail--discord {
+  border-color: rgba(136, 146, 255, 0.55);
+  background: #5865f2;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.contact-mail--discord:hover {
+  border-color: #aeb4ff;
+  background: #6875f5;
+}
+
+.contact-mail--discord .copy-glyph {
+  margin-left: 0.15rem;
+}
+
+.discord-glyph {
+  position: relative;
+  display: flex;
+  width: 1.55rem;
+  height: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  border-radius: 50% 50% 42% 42%;
+  background: #fff;
+}
+
+.discord-glyph::before,
+.discord-glyph::after {
+  position: absolute;
+  top: -0.12rem;
+  width: 0.38rem;
+  height: 0.35rem;
+  border-top: 0.18rem solid #fff;
+  content: "";
+}
+
+.discord-glyph::before {
+  left: 0.08rem;
+  transform: rotate(-24deg);
+}
+
+.discord-glyph::after {
+  right: 0.08rem;
+  transform: rotate(24deg);
+}
+
+.discord-glyph span {
+  position: relative;
+  z-index: 1;
+  width: 0.23rem;
+  height: 0.23rem;
+  border-radius: 50%;
+  background: #5865f2;
+}
+
 .contact-mail--email {
   padding: 0.45rem;
 }

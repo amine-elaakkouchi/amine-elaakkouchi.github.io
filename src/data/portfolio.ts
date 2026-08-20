@@ -39,6 +39,7 @@ export type PortfolioData = {
     intro: string
     about: string
     email: string
+    discord: string
   }
   roles: Role[]
   projects: Project[]
@@ -59,6 +60,7 @@ export const portfolio: PortfolioData = {
     about:
       'A Senior Game Developer specialized in Unity and gamification, with professional experience creating educational, VR, hyper-casual, and marketing experiences. I combine gameplay development, UI, VFX, animation, and design to turn ideas into polished interactive work.',
     email: 'amine.elaakkouchi@gmail.com',
+    discord: 'amineel95',
   },
   roles: [
     {

@@ -104,7 +104,7 @@ function App() {
   const main = useRef<HTMLDivElement>(null)
   const contactDialog = useRef<HTMLDialogElement>(null)
   const linkedin = portfolio.socials.find((social) => social.label === 'LinkedIn')
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState<'email' | 'discord' | null>(null)
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
@@ -117,12 +117,12 @@ function App() {
     return () => media.removeEventListener('change', update)
   }, [])
 
-  const copyEmail = async () => {
+  const copyText = async (value: string, type: 'email' | 'discord') => {
     try {
-      await navigator.clipboard.writeText(portfolio.profile.email)
+      await navigator.clipboard.writeText(value)
     } catch {
       const input = document.createElement('textarea')
-      input.value = portfolio.profile.email
+      input.value = value
       input.style.position = 'fixed'
       input.style.opacity = '0'
       document.body.appendChild(input)
@@ -130,8 +130,8 @@ function App() {
       document.execCommand('copy')
       input.remove()
     }
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1800)
+    setCopied(type)
+    window.setTimeout(() => setCopied(null), 1800)
   }
 
   const sendContact = (event: React.FormEvent<HTMLFormElement>) => {
@@ -406,16 +406,29 @@ function App() {
               <button
                 type="button"
                 className="copy-email"
-                onClick={copyEmail}
+                onClick={() => copyText(portfolio.profile.email, 'email')}
                 aria-label={`Copy ${portfolio.profile.email}`}
                 title="Copy email address"
               >
                 <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
               </button>
-              <span className={`copy-status ${copied ? 'copy-status--visible' : ''}`} role="status">
+              <span className={`copy-status ${copied === 'email' ? 'copy-status--visible' : ''}`} role="status">
                 Copied
               </span>
             </div>
+            <button
+              type="button"
+              className="contact-mail contact-mail--discord"
+              onClick={() => copyText(portfolio.profile.discord, 'discord')}
+              aria-label={`Copy Discord username ${portfolio.profile.discord}`}
+            >
+              <span className="discord-glyph" aria-hidden="true"><span /><span /></span>
+              Discord / {portfolio.profile.discord}
+              <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
+              <span className={`copy-status ${copied === 'discord' ? 'copy-status--visible' : ''}`} role="status">
+                Copied
+              </span>
+            </button>
           </div>
         </section>
       </main>
