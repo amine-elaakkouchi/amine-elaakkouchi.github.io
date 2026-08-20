@@ -9,10 +9,11 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current CV update: `074b4de` — Replace placeholders with verified CV details.
 - Git tip: `162227c` — Update portfolio dev log.
 - Current implementation tip: `274a576` — Build cinematic game portfolio.
 - Previous commit: `fb5053a` — Initial commit.
-- Notable uncommitted work: replaced fictional placeholder content with verified CV experience, education, skills, and contact email.
+- Notable work: replaced fictional placeholder content with verified CV experience, education, skills, and contact email.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
