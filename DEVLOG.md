@@ -9,12 +9,13 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current popup update: `de2ada4` — Add email popup and copy control.
 - Git tip: `81fcb44` — Fix mobile contact text overlap.
 - `04ca262` — Record portfolio contact update.
 - Current contact update: `db57285` — Add direct portfolio contact options.
 - `b3ea128` — Record CV portfolio update.
 - Current CV update: `074b4de` — Replace placeholders with verified CV details.
-- Notable uncommitted work: replaced the direct email link with an in-page contact dialog and added an independent copy-email control.
+- Notable work: replaced the direct email link with an in-page contact dialog and added an independent copy-email control.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
