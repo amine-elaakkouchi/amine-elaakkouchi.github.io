@@ -9,12 +9,13 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current Discord update: `61da7dc` — Add Discord username contact button.
 - Git tip: `623f407` — Record email popup update.
 - Current popup update: `de2ada4` — Add email popup and copy control.
 - `81fcb44` — Fix mobile contact text overlap.
 - `04ca262` — Record portfolio contact update.
 - Current contact update: `db57285` — Add direct portfolio contact options.
-- Notable uncommitted work: added a Discord contact button that copies the verified username `amineel95`.
+- Notable work: added a Discord contact button that copies the verified username `amineel95`.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
