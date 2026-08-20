@@ -9,8 +9,9 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
-- Git tip before this implementation: `fb5053a` — Initial commit.
-- Notable work awaiting publication: complete portfolio UI, typed placeholder content, responsive/accessibility passes, and Pages workflow.
+- Current implementation tip: `274a576` — Build cinematic game portfolio.
+- Previous commit: `fb5053a` — Initial commit.
+- Notable work: complete portfolio UI, typed placeholder content, responsive/accessibility passes, and Pages workflow.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
