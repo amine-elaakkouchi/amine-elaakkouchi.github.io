@@ -5,7 +5,6 @@ import {
   ArrowDown,
   ArrowUpRight,
   Asterisk,
-  Download,
   Gamepad2,
   Mail,
   MousePointer2,
@@ -326,8 +325,8 @@ function App() {
         <section className="experience section" id="experience">
           <SectionIntro
             eyebrow="Résumé / 04"
-            title="Building through iteration."
-            copy="A placeholder career snapshot—replace these entries and the downloadable file with your current résumé."
+            title="Experience built in production."
+            copy="Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing."
           />
           <div className="timeline">
             {[...portfolio.experience, ...portfolio.education].map((item, index) => (
@@ -343,7 +342,7 @@ function App() {
             ))}
           </div>
           <MagneticLink href={portfolio.resume.href} className="resume-link">
-            {portfolio.resume.label} <Download size={18} aria-hidden="true" />
+            {portfolio.resume.label} <Mail size={18} aria-hidden="true" />
           </MagneticLink>
         </section>
 

@@ -19,10 +19,10 @@ corepack pnpm build
 ## Customize
 
 - Edit all profile, project, skills, résumé, and social content in `src/data/portfolio.ts`.
-- Replace the placeholder résumé in `public/`, then update `resume.href` if its filename changes.
+- The résumé button opens a pre-addressed email request so the private source PDF is not published.
 - Adjust the design tokens and responsive layout in `src/index.css`.
 - Modify the procedural WebGL portal in `src/components/PortalScene.tsx`.
-- Replace placeholder email, studio, school, and social URLs before publishing.
+- Add verified LinkedIn and Itch.io URLs to `src/data/portfolio.ts` when available.
 
 The site uses no remote images or 3D model assets. Project artwork is generated with CSS and the hero scene uses procedural Three.js geometry.
 # amine-elaakkouchi.github.io

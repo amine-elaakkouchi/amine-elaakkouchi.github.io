@@ -52,13 +52,13 @@ export type PortfolioData = {
 export const portfolio: PortfolioData = {
   profile: {
     name: 'Amine El Aakkouchi',
-    location: 'Morocco · Available worldwide',
-    availability: 'Open to collaborations',
+    location: 'Casablanca, Morocco · Available worldwide',
+    availability: 'Senior Game Developer',
     intro:
-      'I build expressive game worlds where strong systems, deliberate spaces, and memorable player moments meet.',
+      'I build engaging Unity experiences across games, VR, gamification, education, and brand activation.',
     about:
-      'A multidisciplinary game maker focused on the complete player experience—from the first greybox to the final frame. I combine technical implementation with design intent, shaping mechanics and environments that feel clear, responsive, and alive.',
-    email: 'hello@example.com',
+      'A Senior Game Developer specialized in Unity and gamification, with professional experience creating educational, VR, hyper-casual, and marketing experiences. I combine gameplay development, UI, VFX, animation, and design to turn ideas into polished interactive work.',
+    email: 'amine.elaakkouchi@gmail.com',
   },
   roles: [
     {
@@ -66,150 +66,173 @@ export const portfolio: PortfolioData = {
       title: 'Game Development',
       shortTitle: 'Developer',
       description:
-        'Responsive gameplay, scalable architecture, AI behaviours, and polished interaction systems built with performance in mind.',
+        'Unity and C# development across gameplay mechanics, UI systems, VR prototypes, VFX, animation, and advertising integrations.',
     },
     {
       index: '02',
       title: 'Game Design',
       shortTitle: 'Designer',
       description:
-        'Mechanics, loops, economies, and moment-to-moment decisions designed around legibility, tension, and player agency.',
+        'Engaging mechanics and user experiences designed for educational games, hyper-casual projects, and gamified brand activations.',
     },
     {
       index: '03',
       title: 'Level Design',
       shortTitle: 'World builder',
       description:
-        'Purposeful spaces shaped through composition, pacing, encounter design, playtesting, and rapid greybox iteration.',
+        'Interactive spaces shaped through 2D and 3D design, visual composition, player guidance, iteration, and hands-on prototyping.',
     },
   ],
   projects: [
     {
-      id: 'echoes',
-      title: 'Echoes of Atlas',
-      type: 'Narrative Action · Lead Designer',
-      year: '2026',
+      id: 'a314lab',
+      title: 'Gamified Brand Experiences',
+      type: 'Unity · Senior Game Developer',
+      year: '2024 — Present',
       summary:
-        'A surreal third-person journey through a city that rebuilds itself around the player’s memories.',
+        'Games and gamified marketing experiences developed at A314LAB for a range of company campaigns.',
       challenge:
-        'Make an unstable world readable without losing mystery or disrupting player flow.',
+        'Translate different marketing goals into interactions that are immediate, engaging, and technically reliable.',
       contribution:
-        'Designed the core memory-shift mechanic, prototyped traversal, and built a modular encounter language for the vertical slice.',
+        'Develop gameplay mechanics, UI, VFX, animations, advertising integrations, and supporting marketing features in Unity.',
       outcome:
-        'A focused 20-minute slice with three distinct routes, systemic callbacks, and a strong visual identity.',
-      tools: ['Unreal Engine', 'Blueprints', 'C++', 'Houdini'],
+        'Playable brand activations and gamified experiences delivered for multiple companies and campaign needs.',
+      tools: ['Unity', 'C#', 'UI', 'VFX', 'Animation'],
       accent: '#c7ff43',
-      status: 'Vertical slice',
+      status: 'Professional work',
     },
     {
-      id: 'afterlight',
-      title: 'Afterlight Protocol',
-      type: 'Systems Stealth · Gameplay Developer',
-      year: '2025',
+      id: 'kokoro',
+      title: 'VR Prototypes',
+      type: 'Unity / VR · Game Developer',
+      year: '2021 — 2024',
       summary:
-        'A stealth sandbox where light is both your only weapon and the resource keeping you alive.',
+        'Immersive virtual-reality prototypes built with Unity during game-development roles at Kokoro Games.',
       challenge:
-        'Create AI that communicates intent clearly while adapting to a changing light-driven space.',
+        'Turn interaction concepts into clear, testable VR experiences while learning and iterating quickly.',
       contribution:
-        'Implemented perception and alert systems, authored behaviour-tree tools, and tuned the feedback stack.',
+        'Built Unity VR prototypes and contributed as both a Game Developer and Unity / VR Game Developer Intern.',
       outcome:
-        'Readable emergent encounters with five interacting enemy states and robust designer-facing controls.',
-      tools: ['Unity', 'C#', 'Shader Graph', 'FMOD'],
+        'A collection of functional VR prototypes demonstrating interactive concepts and immersive mechanics.',
+      tools: ['Unity', 'C#', 'VR', 'Prototyping'],
       accent: '#f4bd67',
-      status: 'Prototype',
+      status: 'VR development',
     },
     {
-      id: 'drift',
-      title: 'Drift / Divide',
-      type: 'Arcade Racer · Solo Project',
-      year: '2024',
+      id: 'shinko',
+      title: 'Educational & Hyper-Casual Games',
+      type: 'Unity · Game Development Intern',
+      year: '2020 — 2021',
       summary:
-        'A high-speed racing experiment built around switching between two overlapping realities.',
+        'Accessible educational and hyper-casual games developed during an internship at Shinko Games.',
       challenge:
-        'Keep a dual-world mechanic intuitive at speed and meaningful beyond a visual gimmick.',
+        'Balance simple onboarding, readable feedback, and satisfying mechanics for broad audiences.',
       contribution:
-        'Created the handling model, track metrics, procedural world transitions, UI, and complete content pipeline.',
+        'Developed gameplay mechanics and user interfaces in Unity with close attention to user experience.',
       outcome:
-        'A replayable three-track demo tuned through weekly playtests and telemetry-assisted iteration.',
-      tools: ['Godot', 'GDScript', 'Blender', 'Substance'],
+        'Educational and hyper-casual game experiences combining implementation, interface work, and design.',
+      tools: ['Unity', 'C#', 'Gameplay', 'UI / UX'],
       accent: '#8ca5ff',
-      status: 'Playable demo',
-    },
-    {
-      id: 'hollow',
-      title: 'Hollow Signal',
-      type: 'Environmental Puzzle · Level Designer',
-      year: '2024',
-      summary:
-        'A quiet first-person puzzle built inside an abandoned deep-space relay station.',
-      challenge:
-        'Teach a signal-routing language entirely through space, light, and environmental response.',
-      contribution:
-        'Owned greyboxing, puzzle progression, landmarks, sightlines, and the final art-pass handoff.',
-      outcome:
-        'Six escalating puzzle chambers with no text tutorials and consistent first-play comprehension.',
-      tools: ['Unreal Engine', 'Blueprints', 'Blender'],
-      accent: '#ef775f',
-      status: 'Case study',
+      status: 'Game development',
     },
   ],
   skills: [
     {
       group: 'Engines & code',
-      items: ['Unreal Engine', 'Unity', 'Godot', 'C++', 'C#', 'Blueprints', 'GDScript'],
+      items: ['Unity', 'C#', 'Unreal Engine', 'Gameplay programming', 'VR development'],
     },
     {
       group: 'Design',
-      items: ['Gameplay systems', 'Level design', 'Prototyping', 'Encounter design', 'UX flows', 'Playtesting'],
+      items: ['Game design', 'Gamification', 'Gameplay mechanics', 'UI / UX', 'Prototyping'],
     },
     {
       group: 'World craft',
-      items: ['Blender', 'Houdini', 'Substance 3D', 'Lighting', 'Composition', 'Greyboxing'],
+      items: ['3ds Max', 'Photoshop', '2D design', '3D design', 'VFX', 'Animation'],
     },
     {
-      group: 'Production',
-      items: ['Git', 'Perforce', 'Jira', 'Agile teams', 'Documentation', 'Profiling'],
+      group: 'Languages',
+      items: ['Arabic · Mother tongue', 'French · Good', 'English · Acceptable'],
     },
   ],
   experience: [
     {
-      period: '2025 — Present',
-      role: 'Independent Game Developer',
-      studio: 'Selected collaborations',
+      period: '2024 — Present',
+      role: 'Senior Game Developer',
+      studio: 'A314LAB',
       description:
-        'Building gameplay prototypes and supporting small teams across systems design, technical design, and level production.',
-    },
-    {
-      period: '2024 — 2025',
-      role: 'Game & Level Designer',
-      studio: 'Studio Placeholder',
-      description:
-        'Created greyboxes, encounter layouts, and gameplay specifications for an unannounced action project.',
+        'Designing and developing Unity games and gamified experiences, including gameplay, UI, VFX, animation, advertising integrations, and marketing projects.',
     },
     {
       period: '2023 — 2024',
-      role: 'Gameplay Design Intern',
-      studio: 'Studio Placeholder',
+      role: 'Unity / VR Game Developer Intern',
+      studio: 'Kokoro Games',
       description:
-        'Prototyped player mechanics, supported playtests, and translated findings into focused iteration plans.',
+        'Expanded hands-on Unity and VR development experience through immersive prototype work.',
+    },
+    {
+      period: '2021 — 2022',
+      role: 'Game Developer',
+      studio: 'Kokoro Games',
+      description:
+        'Built VR prototypes using Unity.',
+    },
+    {
+      period: '2020 — 2021',
+      role: 'Game Development Intern',
+      studio: 'Shinko Games',
+      description:
+        'Developed educational and hyper-casual games in Unity, focusing on gameplay mechanics, UI, and user experience.',
+    },
+    {
+      period: 'March — July 2019',
+      role: 'Development Intern',
+      studio: 'Institut Pasteur · Casablanca',
+      description:
+        'Completed a professional development internship at Institut Pasteur in Casablanca.',
+    },
+    {
+      period: '2017 — 2018',
+      role: 'Web Development Intern',
+      studio: '6SOLUTIONS',
+      description:
+        'Completed a web development internship while building broader software-development experience.',
     },
   ],
   education: [
     {
-      period: '2020 — 2023',
-      role: 'B.Sc. Game Design & Development',
-      studio: 'School Placeholder',
+      period: '2019 — 2020',
+      role: 'Arts, Audiovisual & Game Studies',
+      studio: 'Studio M · French School of Arts and Audiovisual',
       description:
-        'Focused on gameplay programming, system design, 3D production, and collaborative game projects.',
+        'Developed visual-production and interactive-media skills across arts, audiovisual work, and games.',
+    },
+    {
+      period: '2016 — 2019',
+      role: 'Master in Computer Engineering · MIAGE',
+      studio: 'EMSI · Moroccan School of Engineering Sciences',
+      description:
+        'Computer Methods Applied to Business Management, combining software engineering and information systems.',
+    },
+    {
+      period: '2013 — 2016',
+      role: 'Specialized Technician · Computer Development',
+      studio: 'ISTA · OFPPT',
+      description:
+        'Professional diploma focused on software and computer development.',
+    },
+    {
+      period: '2012 — 2013',
+      role: 'Scientific Baccalaureate · Life & Earth Sciences',
+      studio: 'Amrou Ibn Al-Ass',
+      description:
+        'Scientific secondary education with a life and earth sciences specialization.',
     },
   ],
   resume: {
-    label: 'Download résumé placeholder',
-    href: '/resume-placeholder.txt',
+    label: 'Request my résumé',
+    href: 'mailto:amine.elaakkouchi@gmail.com?subject=Résumé request',
   },
   socials: [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
     { label: 'GitHub', href: 'https://github.com/amine-elaakkouchi' },
-    { label: 'Itch.io', href: 'https://itch.io/' },
   ],
 }
