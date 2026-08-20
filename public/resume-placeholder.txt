@@ -1,0 +1,4 @@
+AMINE EL AAKKOUCHI — RÉSUMÉ PLACEHOLDER
+
+Replace this file with the final PDF résumé and update resume.href in
+src/data/portfolio.ts.
