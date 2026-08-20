@@ -15,7 +15,7 @@ Last updated: 2026-08-20
 - `162227c` — Update portfolio dev log.
 - `274a576` — Build cinematic game portfolio.
 - `fb5053a` — Initial commit.
-- Notable work: added LinkedIn and pre-addressed email buttons to the contact section.
+- Notable work: added LinkedIn and pre-addressed email buttons to the contact section; removed decorative text overlap on mobile.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.

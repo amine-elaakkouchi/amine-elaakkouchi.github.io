@@ -1141,6 +1141,10 @@ footer > p {
     padding-inline: 1rem;
   }
 
+  .contact-orbit span {
+    display: none;
+  }
+
   footer {
     grid-template-columns: 1fr;
     align-items: start;
