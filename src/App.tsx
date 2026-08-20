@@ -102,7 +102,9 @@ function SectionIntro({
 
 function App() {
   const main = useRef<HTMLDivElement>(null)
+  const contactDialog = useRef<HTMLDialogElement>(null)
   const linkedin = portfolio.socials.find((social) => social.label === 'LinkedIn')
+  const [copied, setCopied] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
@@ -114,6 +116,34 @@ function App() {
     media.addEventListener('change', update)
     return () => media.removeEventListener('change', update)
   }, [])
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(portfolio.profile.email)
+    } catch {
+      const input = document.createElement('textarea')
+      input.value = portfolio.profile.email
+      input.style.position = 'fixed'
+      input.style.opacity = '0'
+      document.body.appendChild(input)
+      input.select()
+      document.execCommand('copy')
+      input.remove()
+    }
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 1800)
+  }
+
+  const sendContact = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const sender = String(data.get('email') ?? '')
+    const message = String(data.get('message') ?? '')
+    const subject = encodeURIComponent('Portfolio inquiry')
+    const body = encodeURIComponent(`From: ${sender}\n\n${message}`)
+    contactDialog.current?.close()
+    window.location.href = `mailto:${portfolio.profile.email}?subject=${subject}&body=${body}`
+  }
 
   useGSAP(
     () => {
@@ -364,17 +394,72 @@ function App() {
                 <ArrowUpRight aria-hidden="true" />
               </a>
             )}
-            <MagneticLink
-              href={`mailto:${portfolio.profile.email}?subject=Portfolio inquiry`}
-              className="contact-mail contact-mail--email"
-            >
-              <Mail aria-hidden="true" />
-              Email me
-              <ArrowUpRight aria-hidden="true" />
-            </MagneticLink>
+            <div className="contact-mail contact-mail--email">
+              <button
+                type="button"
+                className="contact-email-trigger"
+                onClick={() => contactDialog.current?.showModal()}
+              >
+                <Mail aria-hidden="true" />
+                Email me
+              </button>
+              <button
+                type="button"
+                className="copy-email"
+                onClick={copyEmail}
+                aria-label={`Copy ${portfolio.profile.email}`}
+                title="Copy email address"
+              >
+                <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
+              </button>
+              <span className={`copy-status ${copied ? 'copy-status--visible' : ''}`} role="status">
+                Copied
+              </span>
+            </div>
           </div>
         </section>
       </main>
+
+      <dialog className="contact-dialog" ref={contactDialog}>
+        <button
+          type="button"
+          className="dialog-close"
+          onClick={() => contactDialog.current?.close()}
+          aria-label="Close contact form"
+        >
+          ×
+        </button>
+        <p className="eyebrow"><span className="status-dot" /> Start a conversation</p>
+        <h2>Tell me about<br /><em>your project.</em></h2>
+        <form className="contact-form" onSubmit={sendContact}>
+          <label>
+            Your email address
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              autoComplete="email"
+              required
+            />
+          </label>
+          <label>
+            Your message
+            <textarea
+              name="message"
+              placeholder="What would you like to build?"
+              rows={7}
+              required
+            />
+          </label>
+          <button type="submit" className="send-message">
+            Continue in email
+            <ArrowUpRight aria-hidden="true" />
+          </button>
+        </form>
+        <p className="dialog-note">
+          Your email app will open with this message ready to send.
+        </p>
+      </dialog>
 
       <footer>
         <div>

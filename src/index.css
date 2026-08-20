@@ -847,6 +847,7 @@ ul {
 }
 
 .contact-mail {
+  position: relative;
   display: flex;
   width: fit-content;
   margin: 0;
@@ -875,6 +876,87 @@ ul {
   background: var(--paper);
 }
 
+.contact-mail--email {
+  padding: 0.45rem;
+}
+
+.contact-email-trigger,
+.copy-email {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.contact-email-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.35rem 0.75rem 0.75rem;
+}
+
+.copy-email {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border-left: 1px solid var(--line);
+}
+
+.copy-email:hover .copy-glyph,
+.copy-email:focus-visible .copy-glyph {
+  color: var(--acid);
+}
+
+.copy-glyph {
+  position: relative;
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--paper);
+  transition: color 180ms ease;
+}
+
+.copy-glyph span {
+  position: absolute;
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 1.5px solid currentColor;
+  border-radius: 0.1rem;
+}
+
+.copy-glyph span:first-child {
+  top: 0;
+  right: 0;
+}
+
+.copy-glyph span:last-child {
+  bottom: 0;
+  left: 0;
+}
+
+.copy-status {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: var(--acid);
+  color: var(--ink);
+  font-size: 0.65rem;
+  font-weight: 800;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.3rem);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.copy-status--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .linkedin-glyph {
   display: grid;
   width: 1.5rem;
@@ -886,6 +968,123 @@ ul {
   font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: -0.08em;
+}
+
+.contact-dialog {
+  width: min(92vw, 48rem);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border: 1px solid rgba(199, 255, 67, 0.35);
+  border-radius: 2rem;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    #10120f;
+  background-size: 3.5rem 3.5rem;
+  box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.75);
+  color: var(--paper);
+}
+
+.contact-dialog::backdrop {
+  background: rgba(3, 4, 3, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.contact-dialog h2 {
+  margin: 1.5rem 0 2.5rem;
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: -0.07em;
+  line-height: 0.88;
+}
+
+.contact-dialog h2 em {
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--paper);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--paper);
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: 0;
+  outline: none;
+  text-transform: none;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.contact-form input {
+  padding: 1rem 1.1rem;
+}
+
+.contact-form textarea {
+  min-height: 11rem;
+  padding: 1.1rem;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--acid);
+  background: rgba(199, 255, 67, 0.045);
+}
+
+.send-message {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--acid);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.dialog-note {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 
 .contact-orbit {

@@ -9,18 +9,17 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Git tip: `81fcb44` — Fix mobile contact text overlap.
+- `04ca262` — Record portfolio contact update.
 - Current contact update: `db57285` — Add direct portfolio contact options.
-- Git tip: `b3ea128` — Record CV portfolio update.
+- `b3ea128` — Record CV portfolio update.
 - Current CV update: `074b4de` — Replace placeholders with verified CV details.
-- `162227c` — Update portfolio dev log.
-- `274a576` — Build cinematic game portfolio.
-- `fb5053a` — Initial commit.
-- Notable work: added LinkedIn and pre-addressed email buttons to the contact section; removed decorative text overlap on mobile.
+- Notable uncommitted work: replaced the direct email link with an in-page contact dialog and added an independent copy-email control.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
 - The source CV remains private because it contains a home address, phone number, age, and relationship status; the public résumé action opens an email request instead.
-- Contact uses direct LinkedIn navigation and a `mailto:` link; no visitor data is collected or stored.
+- Contact uses direct LinkedIn navigation and a native dialog form that composes a `mailto:` message; no visitor data is collected or stored.
 - Project visuals and the hero are generated locally; there are no copied template assets or remote image dependencies.
 - The Three.js scene is lazy-loaded and has reduced-motion and no-WebGL fallbacks.
 - Visual direction combines dark cinematic game presentation with bold editorial typography and restrained acid-green/gold accents.
