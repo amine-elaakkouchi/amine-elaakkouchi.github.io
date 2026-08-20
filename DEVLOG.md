@@ -9,12 +9,13 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current contact update: `db57285` — Add direct portfolio contact options.
 - Git tip: `b3ea128` — Record CV portfolio update.
 - Current CV update: `074b4de` — Replace placeholders with verified CV details.
 - `162227c` — Update portfolio dev log.
 - `274a576` — Build cinematic game portfolio.
 - `fb5053a` — Initial commit.
-- Notable uncommitted work: added LinkedIn and pre-addressed email buttons to the contact section.
+- Notable work: added LinkedIn and pre-addressed email buttons to the contact section.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
