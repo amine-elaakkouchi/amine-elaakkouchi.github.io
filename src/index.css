@@ -841,18 +841,19 @@ ul {
   position: relative;
   z-index: 2;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 0.8rem;
 }
 
 .contact-mail {
   position: relative;
   display: flex;
-  width: fit-content;
+  width: min(100%, 22rem);
   margin: 0;
   align-items: center;
   gap: 1rem;
+  justify-content: flex-start;
   padding: 1.2rem 1.6rem;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -876,6 +877,10 @@ ul {
   background: var(--paper);
 }
 
+.contact-mail--linkedin > svg:last-child {
+  margin-left: auto;
+}
+
 .contact-mail--discord {
   border-color: rgba(136, 146, 255, 0.55);
   background: #5865f2;
@@ -891,7 +896,7 @@ ul {
 }
 
 .contact-mail--discord .copy-glyph {
-  margin-left: 0.15rem;
+  margin-left: auto;
 }
 
 .discord-glyph {
@@ -937,6 +942,15 @@ ul {
 
 .contact-mail--email {
   padding: 0.45rem;
+  border-color: rgba(255, 70, 126, 0.7);
+  background: linear-gradient(120deg, #e52d3d, #ff4f9a);
+  color: #fff;
+  font-weight: 800;
+}
+
+.contact-mail--email:hover {
+  border-color: #ffb0cf;
+  background: linear-gradient(120deg, #f23849, #ff65aa);
 }
 
 .contact-email-trigger,
@@ -950,6 +964,7 @@ ul {
 
 .contact-email-trigger {
   display: flex;
+  flex: 1;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 0.35rem 0.75rem 0.75rem;
@@ -960,7 +975,7 @@ ul {
   width: 2.8rem;
   height: 2.8rem;
   place-items: center;
-  border-left: 1px solid var(--line);
+  border-left: 1px solid rgba(255, 255, 255, 0.32);
 }
 
 .copy-email:hover .copy-glyph,
@@ -1397,6 +1412,10 @@ footer > p {
   .contact-mail {
     gap: 0.6rem;
     padding-inline: 1rem;
+  }
+
+  .contact-mail--email {
+    padding-inline: 0.45rem;
   }
 
   .contact-orbit span {

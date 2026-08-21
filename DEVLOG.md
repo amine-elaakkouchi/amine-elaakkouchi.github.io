@@ -1,6 +1,6 @@
 # Portfolio Dev Log
 
-Last updated: 2026-08-20
+Last updated: 2026-08-21
 
 ## Active scene and build
 - Active experience: cinematic single-page game-development portfolio.
@@ -9,19 +9,22 @@ Last updated: 2026-08-20
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Git tip: `92b052d` — Record Discord contact update.
 - Current Discord update: `61da7dc` — Add Discord username contact button.
-- Git tip: `623f407` — Record email popup update.
+- `623f407` — Record email popup update.
 - Current popup update: `de2ada4` — Add email popup and copy control.
 - `81fcb44` — Fix mobile contact text overlap.
 - `04ca262` — Record portfolio contact update.
 - Current contact update: `db57285` — Add direct portfolio contact options.
 - Notable work: added a Discord contact button that copies the verified username `amineel95`.
+- Notable uncommitted work: stacked the contact buttons vertically at equal widths and gave Email a red-to-pink gradient.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
 - The source CV remains private because it contains a home address, phone number, age, and relationship status; the public résumé action opens an email request instead.
 - Contact uses direct LinkedIn navigation and a native dialog form that composes a `mailto:` message; no visitor data is collected or stored.
 - Discord contact copies the username locally rather than using an unreliable username-only profile URL.
+- Contact actions use a vertical, equal-width layout so each method has the same visual weight.
 - Project visuals and the hero are generated locally; there are no copied template assets or remote image dependencies.
 - The Three.js scene is lazy-loaded and has reduced-motion and no-WebGL fallbacks.
 - Visual direction combines dark cinematic game presentation with bold editorial typography and restrained acid-green/gold accents.
