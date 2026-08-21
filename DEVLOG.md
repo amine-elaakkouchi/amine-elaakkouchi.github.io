@@ -9,6 +9,7 @@ Last updated: 2026-08-21
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current contact layout: `72a97f6` — Stack and color contact buttons.
 - Git tip: `92b052d` — Record Discord contact update.
 - Current Discord update: `61da7dc` — Add Discord username contact button.
 - `623f407` — Record email popup update.
@@ -17,7 +18,7 @@ Last updated: 2026-08-21
 - `04ca262` — Record portfolio contact update.
 - Current contact update: `db57285` — Add direct portfolio contact options.
 - Notable work: added a Discord contact button that copies the verified username `amineel95`.
-- Notable uncommitted work: stacked the contact buttons vertically at equal widths and gave Email a red-to-pink gradient.
+- Notable work: stacked the contact buttons vertically at equal widths and gave Email a red-to-pink gradient.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
