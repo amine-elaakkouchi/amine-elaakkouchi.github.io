@@ -9,6 +9,7 @@ Last updated: 2026-08-21
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Current Gmail popup: `c36f862` — Open contact messages in Gmail.
 - Git tip: `750190f` — Record contact layout update.
 - Current contact layout: `72a97f6` — Stack and color contact buttons.
 - `92b052d` — Record Discord contact update.
@@ -20,7 +21,7 @@ Last updated: 2026-08-21
 - Current contact update: `db57285` — Add direct portfolio contact options.
 - Notable work: added a Discord contact button that copies the verified username `amineel95`.
 - Notable work: stacked the contact buttons vertically at equal widths and gave Email a red-to-pink gradient.
-- Notable uncommitted work: matched the popup to the Email gradient and changed submission to open a prefilled Gmail compose window.
+- Notable work: matched the popup to the Email gradient and changed submission to open a prefilled Gmail compose window.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
