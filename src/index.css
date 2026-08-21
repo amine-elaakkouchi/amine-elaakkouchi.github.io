@@ -1049,12 +1049,12 @@ ul {
   max-height: 90vh;
   overflow-y: auto;
   padding: clamp(1.5rem, 4vw, 3.5rem);
-  border: 1px solid rgba(199, 255, 67, 0.35);
+  border: 1px solid rgba(255, 188, 214, 0.7);
   border-radius: 2rem;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    #10120f;
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(135deg, #c91f3c, #ff4f9a);
   background-size: 3.5rem 3.5rem;
   box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.75);
   color: var(--paper);
@@ -1073,7 +1073,7 @@ ul {
 }
 
 .contact-dialog h2 em {
-  color: var(--gold);
+  color: #fff;
   font-family: Georgia, serif;
   font-weight: 400;
 }
@@ -1086,9 +1086,9 @@ ul {
   width: 2.8rem;
   height: 2.8rem;
   place-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
-  background: var(--surface-2);
+  background: rgba(52, 0, 19, 0.28);
   color: var(--paper);
   cursor: pointer;
   font-size: 1.5rem;
@@ -1102,7 +1102,7 @@ ul {
 .contact-form label {
   display: grid;
   gap: 0.6rem;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -1112,9 +1112,9 @@ ul {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(45, 0, 17, 0.24);
   color: var(--paper);
   font: inherit;
   font-size: 1rem;
@@ -1136,8 +1136,8 @@ ul {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: var(--acid);
-  background: rgba(199, 255, 67, 0.045);
+  border-color: #fff;
+  background: rgba(45, 0, 17, 0.36);
 }
 
 .send-message {
@@ -1148,8 +1148,8 @@ ul {
   padding: 1rem 1.35rem;
   border: 0;
   border-radius: 999px;
-  background: var(--acid);
-  color: var(--ink);
+  background: #fff;
+  color: #c91f3c;
   cursor: pointer;
   font: inherit;
   font-weight: 900;
@@ -1157,7 +1157,7 @@ ul {
 
 .dialog-note {
   margin-top: 1rem;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 0.75rem;
 }
 

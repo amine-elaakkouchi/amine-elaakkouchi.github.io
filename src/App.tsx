@@ -141,8 +141,9 @@ function App() {
     const message = String(data.get('message') ?? '')
     const subject = encodeURIComponent('Portfolio inquiry')
     const body = encodeURIComponent(`From: ${sender}\n\n${message}`)
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.profile.email)}&su=${subject}&body=${body}`
     contactDialog.current?.close()
-    window.location.href = `mailto:${portfolio.profile.email}?subject=${subject}&body=${body}`
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer')
   }
 
   useGSAP(
@@ -450,8 +451,10 @@ function App() {
             <input
               type="email"
               name="email"
-              placeholder="you@example.com"
+              placeholder="example@gmail.com"
               autoComplete="email"
+              pattern="[a-zA-Z0-9._%+\-]+@gmail\.com"
+              title="Enter a Gmail address, such as example@gmail.com"
               required
             />
           </label>
@@ -465,12 +468,12 @@ function App() {
             />
           </label>
           <button type="submit" className="send-message">
-            Continue in email
+            Send email
             <ArrowUpRight aria-hidden="true" />
           </button>
         </form>
         <p className="dialog-note">
-          Your email app will open with this message ready to send.
+          Gmail will open with your message ready. Review it, then click Send.
         </p>
       </dialog>
 

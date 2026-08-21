@@ -9,8 +9,9 @@ Last updated: 2026-08-21
 - Deployment target: GitHub Pages at `https://amine-elaakkouchi.github.io`.
 
 ## Recent commits and work
+- Git tip: `750190f` — Record contact layout update.
 - Current contact layout: `72a97f6` — Stack and color contact buttons.
-- Git tip: `92b052d` — Record Discord contact update.
+- `92b052d` — Record Discord contact update.
 - Current Discord update: `61da7dc` — Add Discord username contact button.
 - `623f407` — Record email popup update.
 - Current popup update: `de2ada4` — Add email popup and copy control.
@@ -19,11 +20,13 @@ Last updated: 2026-08-21
 - Current contact update: `db57285` — Add direct portfolio contact options.
 - Notable work: added a Discord contact button that copies the verified username `amineel95`.
 - Notable work: stacked the contact buttons vertically at equal widths and gave Email a red-to-pink gradient.
+- Notable uncommitted work: matched the popup to the Email gradient and changed submission to open a prefilled Gmail compose window.
 
 ## Architecture decisions
 - Portfolio content is centralized in `src/data/portfolio.ts`.
 - The source CV remains private because it contains a home address, phone number, age, and relationship status; the public résumé action opens an email request instead.
-- Contact uses direct LinkedIn navigation and a native dialog form that composes a `mailto:` message; no visitor data is collected or stored.
+- Contact uses direct LinkedIn navigation and a native dialog form that opens a prefilled Gmail compose window; no visitor data is collected or stored.
+- Gmail still requires the signed-in visitor to review and click Send; the static site cannot send as another Gmail user automatically.
 - Discord contact copies the username locally rather than using an unreliable username-only profile URL.
 - Contact actions use a vertical, equal-width layout so each method has the same visual weight.
 - Project visuals and the hero are generated locally; there are no copied template assets or remote image dependencies.
