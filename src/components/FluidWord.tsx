@@ -1,28 +1,21 @@
-import { useId, useRef, type PointerEvent } from 'react'
+import { useId } from 'react'
 
-export function FluidWord({ children }: { children: string }) {
+export function FluidWord({
+  children,
+  variant = 'fill',
+}: {
+  children: string
+  variant?: 'fill' | 'outline'
+}) {
   const id = useId().replace(/:/g, '')
-  const displacement = useRef<SVGFEDisplacementMapElement>(null)
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  const ripple = (event: PointerEvent<SVGSVGElement>) => {
-    if (reduced || !displacement.current) return
-    const strength = 10 + Math.min(Math.abs(event.movementX) + Math.abs(event.movementY), 22)
-    displacement.current.setAttribute('scale', String(strength))
-  }
-
-  const settle = () => {
-    displacement.current?.setAttribute('scale', '8')
-  }
 
   return (
     <svg
-      className="fluid-word"
-      viewBox="0 0 920 220"
+      className={`fluid-word fluid-word--${variant}`}
+      viewBox={variant === 'outline' ? '0 0 980 140' : '0 0 920 220'}
       role="img"
       aria-hidden="true"
-      onPointerMove={ripple}
-      onPointerLeave={settle}
     >
       <defs>
         <linearGradient id={`fluid-fill-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -30,7 +23,7 @@ export function FluidWord({ children }: { children: string }) {
           <stop offset="42%" stopColor="#d8d9d0" />
           <stop offset="100%" stopColor="#8d9186" />
         </linearGradient>
-        <filter id={`fluid-warp-${id}`} x="-8%" y="-18%" width="116%" height="140%">
+        <filter id={`fluid-warp-${id}`} x="-10%" y="-22%" width="120%" height="150%">
           <feTurbulence
             type="fractalNoise"
             baseFrequency={reduced ? '0' : '0.012'}
@@ -48,20 +41,30 @@ export function FluidWord({ children }: { children: string }) {
             )}
           </feTurbulence>
           <feDisplacementMap
-            ref={displacement}
             in="SourceGraphic"
             in2="noise"
             scale={reduced ? '0' : '8'}
             xChannelSelector="R"
             yChannelSelector="G"
-          />
+          >
+            {!reduced && (
+              <animate
+                attributeName="scale"
+                values="6;14;8;12;6"
+                dur="7s"
+                repeatCount="indefinite"
+              />
+            )}
+          </feDisplacementMap>
         </filter>
       </defs>
       <text
         x="8"
-        y="188"
+        y={variant === 'outline' ? '108' : '188'}
         filter={`url(#fluid-warp-${id})`}
-        fill={`url(#fluid-fill-${id})`}
+        fill={variant === 'outline' ? 'none' : `url(#fluid-fill-${id})`}
+        stroke={variant === 'outline' ? 'rgba(240, 241, 233, 0.78)' : 'none'}
+        strokeWidth={variant === 'outline' ? '3.2' : '0'}
       >
         {children}
       </text>

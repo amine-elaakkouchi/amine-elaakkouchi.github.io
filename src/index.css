@@ -292,11 +292,17 @@ ul {
   left: 4vw;
   z-index: 2;
   pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hero-word--fluid {
-  pointer-events: auto;
   width: min(72vw, 58rem);
+}
+
+.hero-word--fluid,
+.hero-word--outline {
+  overflow: visible;
 }
 
 .fluid-word {
@@ -304,7 +310,7 @@ ul {
   width: 100%;
   height: auto;
   overflow: visible;
-  cursor: none;
+  pointer-events: none;
 }
 
 .fluid-word text {
@@ -312,6 +318,11 @@ ul {
   font-size: 210px;
   font-weight: 900;
   letter-spacing: -0.085em;
+}
+
+.fluid-word--outline text {
+  font-size: 92px;
+  letter-spacing: -0.055em;
 }
 
 .hero-title h1 {
@@ -336,11 +347,7 @@ ul {
 
 .hero-word--outline {
   align-self: flex-start;
-  color: transparent;
-  font-size: 0.34em;
-  letter-spacing: -0.055em;
-  white-space: nowrap;
-  -webkit-text-stroke: 1.2px rgba(240, 241, 233, 0.78);
+  width: min(58vw, 38rem);
   transform: translateX(8vw);
 }
 

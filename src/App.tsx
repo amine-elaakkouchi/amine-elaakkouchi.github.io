@@ -249,7 +249,9 @@ function App() {
                 </span>
               </span>
               <span className="hero-word hero-word--outline">
-                <span>Developer <em>/ Designer</em></span>
+                <span>
+                  <FluidWord variant="outline">DEVELOPER / DESIGNER</FluidWord>
+                </span>
               </span>
             </h1>
           </div>
