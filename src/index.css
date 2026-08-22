@@ -253,7 +253,9 @@ ul {
 .hero-identity {
   position: absolute;
   top: 10.8rem;
-  right: clamp(22rem, 32vw, 38rem);
+  left: 70%;
+  right: auto;
+  transform: translateX(-100%);
   z-index: 3;
   display: flex;
   align-items: flex-end;
@@ -1359,8 +1361,9 @@ footer > p {
 
   .hero-identity {
     top: 12.1rem;
-    right: auto;
     left: 4vw;
+    right: auto;
+    transform: none;
     align-items: flex-start;
     text-align: left;
   }
