@@ -300,8 +300,8 @@ ul {
   width: min(72vw, 58rem);
 }
 
-.hero-word--fluid,
-.hero-word--outline {
+.hero-word.hero-word--fluid,
+.hero-word.hero-word--outline {
   overflow: visible;
 }
 
@@ -321,8 +321,8 @@ ul {
 }
 
 .fluid-word--outline text {
-  font-size: 92px;
-  letter-spacing: -0.055em;
+  font-size: 86px;
+  letter-spacing: -0.04em;
 }
 
 .hero-title h1 {
@@ -347,8 +347,8 @@ ul {
 
 .hero-word--outline {
   align-self: flex-start;
-  width: min(58vw, 38rem);
-  transform: translateX(8vw);
+  width: min(92vw, 68rem);
+  transform: translateX(4vw);
 }
 
 .hero-word--outline em {

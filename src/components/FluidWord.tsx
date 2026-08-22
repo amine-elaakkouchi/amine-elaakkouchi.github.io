@@ -13,7 +13,7 @@ export function FluidWord({
   return (
     <svg
       className={`fluid-word fluid-word--${variant}`}
-      viewBox={variant === 'outline' ? '0 0 980 140' : '0 0 920 220'}
+      viewBox={variant === 'outline' ? '0 0 1720 150' : '0 0 920 220'}
       role="img"
       aria-hidden="true"
     >
