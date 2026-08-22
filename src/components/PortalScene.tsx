@@ -6,8 +6,8 @@ import * as THREE from 'three'
 const avatarPath = '/models/avatar.glb'
 
 function getHeroX(width: number, height: number) {
-  if (width < 700) return 0.55
-  return width / height < 1.25 ? 1.15 : 1.78
+  if (width < 700) return 0.85
+  return width / height < 1.25 ? 1.5 : 2.2
 }
 
 function seededRandom(seed: { value: number }) {
