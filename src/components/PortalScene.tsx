@@ -14,7 +14,8 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const { gl, pointer, size } = useThree()
   const { scene, animations } = useGLTF(avatarPath)
   const { actions } = useAnimations(animations, avatar)
-  const avatarX = size.width < 700 ? 0.18 : 0.8
+  const avatarX =
+    size.width < 700 ? 0.18 : size.width / size.height < 1.25 ? 0.8 : 1.12
 
   useEffect(() => {
     const idle = actions[animations[0]?.name]

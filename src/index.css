@@ -297,6 +297,7 @@ ul {
   align-self: flex-end;
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(240, 241, 233, 0.78);
+  transform: translateX(-2.5vw);
 }
 
 .hero-subline {
@@ -1348,6 +1349,7 @@ footer > p {
 
   .hero-word--outline {
     align-self: flex-start;
+    transform: none;
   }
 
   .hero-subline {
