@@ -1,74 +1,73 @@
-import { Float, Sparkles } from '@react-three/drei'
+import { ContactShadows, Sparkles, useAnimations, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-function Portal({ reducedMotion }: { reducedMotion: boolean }) {
-  const portal = useRef<THREE.Group>(null)
-  const core = useRef<THREE.Mesh>(null)
+const avatarPath = '/models/avatar.glb'
+
+function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
+  const avatar = useRef<THREE.Group>(null)
   const { pointer } = useThree()
+  const { scene, animations } = useGLTF(avatarPath)
+  const { actions } = useAnimations(animations, avatar)
+
+  useEffect(() => {
+    const idle = actions[animations[0]?.name]
+    if (!idle || reducedMotion) return
+
+    idle.reset().fadeIn(0.45).play()
+    return () => {
+      idle.fadeOut(0.25)
+    }
+  }, [actions, animations, reducedMotion])
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true
+        child.receiveShadow = true
+      }
+    })
+  }, [scene])
 
   useFrame((state, delta) => {
-    if (!portal.current || !core.current) return
-    const speed = reducedMotion ? 0.04 : 0.22
-    portal.current.rotation.z += delta * speed
-    portal.current.rotation.x = THREE.MathUtils.lerp(
-      portal.current.rotation.x,
-      pointer.y * 0.16,
-      reducedMotion ? 0.015 : 0.04,
+    if (!avatar.current || reducedMotion) return
+    avatar.current.rotation.y = THREE.MathUtils.damp(
+      avatar.current.rotation.y,
+      pointer.x * 0.16,
+      4,
+      delta,
     )
-    portal.current.rotation.y = THREE.MathUtils.lerp(
-      portal.current.rotation.y,
-      pointer.x * 0.22,
-      reducedMotion ? 0.015 : 0.04,
+    avatar.current.rotation.x = THREE.MathUtils.damp(
+      avatar.current.rotation.x,
+      -pointer.y * 0.025,
+      4,
+      delta,
     )
-    core.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 1.2) * 0.025)
+    avatar.current.position.y = -1.79 + Math.sin(state.clock.elapsedTime * 0.8) * 0.018
   })
 
   return (
-    <group ref={portal}>
-      <Float speed={reducedMotion ? 0.2 : 1.1} rotationIntensity={0.15} floatIntensity={0.24}>
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[2.15, 0.12, 20, 160]} />
-          <meshStandardMaterial
-            color="#b9ff3d"
-            emissive="#78b500"
-            emissiveIntensity={2.4}
-            roughness={0.32}
-            metalness={0.75}
-          />
-        </mesh>
-        <mesh rotation={[Math.PI / 2, 0.18, 0.4]}>
-          <torusKnotGeometry args={[1.65, 0.035, 180, 8, 3, 5]} />
-          <meshStandardMaterial
-            color="#f0b85c"
-            emissive="#d07a20"
-            emissiveIntensity={1.8}
-            roughness={0.4}
-            metalness={0.82}
-          />
-        </mesh>
-        <mesh ref={core}>
-          <icosahedronGeometry args={[1.18, 2]} />
-          <meshPhysicalMaterial
-            color="#121612"
-            emissive="#20320d"
-            emissiveIntensity={0.8}
-            roughness={0.12}
-            metalness={0.25}
-            transmission={0.15}
-            wireframe
-          />
-        </mesh>
-      </Float>
-      <Sparkles
-        count={reducedMotion ? 26 : 70}
-        scale={[6.5, 6.5, 3]}
-        size={1.4}
-        speed={reducedMotion ? 0.05 : 0.24}
-        color="#dfff7a"
-        opacity={0.55}
+    <group>
+      <primitive ref={avatar} object={scene} position={[0, -1.79, 0]} scale={1.9} />
+      <ContactShadows
+        position={[0, -1.79, 0]}
+        opacity={0.52}
+        scale={5}
+        blur={2.4}
+        far={3.5}
+        color="#050705"
       />
+      {!reducedMotion && (
+        <Sparkles
+          count={34}
+          scale={[5.5, 4.5, 2.5]}
+          size={1.2}
+          speed={0.18}
+          color="#dfff7a"
+          opacity={0.38}
+        />
+      )}
     </group>
   )
 }
@@ -76,14 +75,24 @@ function Portal({ reducedMotion }: { reducedMotion: boolean }) {
 export default function PortalScene({ reducedMotion }: { reducedMotion: boolean }) {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6.5], fov: 42 }}
+      camera={{ position: [0, 0, 7], fov: 36 }}
       dpr={[1, 1.6]}
+      frameloop={reducedMotion ? 'demand' : 'always'}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      shadows
     >
-      <ambientLight intensity={0.45} />
-      <directionalLight position={[3, 4, 5]} intensity={2.4} color="#edffd0" />
-      <pointLight position={[-4, -2, 2]} intensity={18} color="#d59135" />
-      <Portal reducedMotion={reducedMotion} />
+      <ambientLight intensity={1.1} />
+      <directionalLight
+        castShadow
+        position={[3, 5, 4]}
+        intensity={3.2}
+        color="#f2ffdc"
+      />
+      <directionalLight position={[-4, 2, 3]} intensity={2.1} color="#f0b85c" />
+      <pointLight position={[0, -1, 3]} intensity={8} color="#b9ff3d" />
+      <Avatar reducedMotion={reducedMotion} />
     </Canvas>
   )
 }
+
+useGLTF.preload(avatarPath)

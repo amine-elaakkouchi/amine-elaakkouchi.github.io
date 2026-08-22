@@ -217,7 +217,7 @@ function App() {
 
       <main id="main">
         <section className="hero" id="top">
-          <div className="hero-scene" aria-label="Interactive procedural portal">
+          <div className="hero-scene" aria-label="Interactive animated 3D avatar">
             {webGL ? (
               <Suspense fallback={<div className="scene-fallback scene-fallback--loading" />}>
                 <PortalScene reducedMotion={reducedMotion} />
