@@ -253,7 +253,7 @@ ul {
 .hero-identity {
   position: absolute;
   top: 10.8rem;
-  left: 78%;
+  left: 76%;
   right: auto;
   transform: translateX(-100%);
   z-index: 3;
