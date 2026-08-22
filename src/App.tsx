@@ -265,7 +265,9 @@ function App() {
                 <span>XR</span><Asterisk />
                 <span>2D</span><Asterisk />
                 <span>3D</span><Asterisk />
-                <span>MANAGEMENT</span><Asterisk />
+                <span>OPTIMISATION</span><Asterisk />
+                <span>TEAMWORK</span><Asterisk />
+                <span>GAME MANAGEMENT</span><Asterisk />
                 <span>DESIGN</span><Asterisk />
                 <span>PLAYABLE WORLDS</span><Asterisk />
                 <span>SYSTEMIC STORIES</span><Asterisk />
