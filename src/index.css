@@ -209,7 +209,7 @@ ul {
 .hero-meta {
   position: absolute;
   top: 6.5rem;
-  left: 1rem;
+  left: 8vw;
   right: auto;
   z-index: 3;
   display: flex;
