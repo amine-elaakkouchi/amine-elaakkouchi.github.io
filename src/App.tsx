@@ -203,7 +203,7 @@ function App() {
 
       <nav className="site-nav" aria-label="Main navigation">
         <a className="nav-mark" href="#top" aria-label="Amine El Aakkouchi, home">
-          AE
+          <img src="/ae-mark.svg" alt="" />
         </a>
         <div className="nav-links">
           <a href="#work">Work</a>
@@ -227,12 +227,13 @@ function App() {
             )}
           </div>
           <div className="hero-vignette" />
-          <div className="hero-meta">
-            <p>{portfolio.profile.location}</p>
-            <p className="status">
-              <span />
-              {portfolio.profile.availability}
-            </p>
+          <div className="hero-meta" aria-label="Professional details">
+            {portfolio.profile.heroDetails.map((detail) => (
+              <p className="hero-detail" key={detail.label}>
+                <span aria-hidden="true">{detail.icon}</span>
+                {detail.label}
+              </p>
+            ))}
           </div>
           <div className="hero-identity">
             <strong>{portfolio.profile.heroName}</strong>
@@ -245,14 +246,9 @@ function App() {
                 <span>Game</span>
               </span>
               <span className="hero-word hero-word--outline">
-                <span>Developer</span>
+                <span>Developer <em>/ Designer</em></span>
               </span>
             </h1>
-            <div className="hero-subline">
-              <p>{portfolio.profile.intro}</p>
-              <span aria-hidden="true">/</span>
-              <p>Designer<br />World builder</p>
-            </div>
           </div>
           <a className="scroll-cue" href="#about">
             Explore <ArrowDown size={16} aria-hidden="true" />

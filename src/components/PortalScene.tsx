@@ -1,9 +1,164 @@
 import { ContactShadows, Sparkles, useAnimations, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 const avatarPath = '/models/avatar.glb'
+
+function getHeroX(width: number, height: number) {
+  if (width < 700) return 0.35
+  return width / height < 1.25 ? 0.9 : 1.48
+}
+
+function seededRandom(seed: { value: number }) {
+  seed.value = (seed.value * 1664525 + 1013904223) >>> 0
+  return seed.value / 4294967296
+}
+
+function NeuralPulse({
+  position,
+  phase,
+  reducedMotion,
+}: {
+  position: [number, number, number]
+  phase: number
+  reducedMotion: boolean
+}) {
+  const pulse = useRef<THREE.Mesh>(null)
+  const material = useRef<THREE.MeshBasicMaterial>(null)
+
+  useFrame(({ clock }) => {
+    if (!pulse.current || !material.current || reducedMotion) return
+    const wave = (Math.sin(clock.elapsedTime * 1.35 + phase) + 1) / 2
+    pulse.current.scale.setScalar(0.75 + wave * 1.7)
+    material.current.opacity = 0.16 + wave * 0.48
+  })
+
+  return (
+    <mesh ref={pulse} position={position}>
+      <sphereGeometry args={[0.09, 12, 12]} />
+      <meshBasicMaterial
+        ref={material}
+        color="#b38aff"
+        transparent
+        opacity={reducedMotion ? 0.42 : 0.3}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </mesh>
+  )
+}
+
+function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
+  const field = useRef<THREE.Group>(null)
+  const { pointer, size } = useThree()
+  const compact = size.width < 700
+  const heroX = getHeroX(size.width, size.height)
+
+  const network = useMemo(() => {
+    const count = compact ? 26 : 48
+    const seed = { value: 117 }
+    const nodes: THREE.Vector3[] = []
+
+    for (let index = 0; index < count; index += 1) {
+      const angle = seededRandom(seed) * Math.PI * 2
+      const radius = Math.sqrt(seededRandom(seed))
+      const depth = seededRandom(seed) * 2 - 1
+      nodes.push(
+        new THREE.Vector3(
+          Math.cos(angle) * radius * (compact ? 2.15 : 2.8),
+          Math.sin(angle) * radius * 2.25 + 0.22,
+          depth * 1.25,
+        ),
+      )
+    }
+
+    const points = new Float32Array(nodes.flatMap((node) => node.toArray()))
+    const links: number[] = []
+    const maxLinks = compact ? 42 : 92
+    const linkDistance = compact ? 1.3 : 1.15
+
+    for (let first = 0; first < nodes.length && links.length / 6 < maxLinks; first += 1) {
+      for (let second = first + 1; second < nodes.length; second += 1) {
+        if (nodes[first].distanceTo(nodes[second]) < linkDistance) {
+          links.push(...nodes[first].toArray(), ...nodes[second].toArray())
+          if (links.length / 6 >= maxLinks) break
+        }
+      }
+    }
+
+    return {
+      points,
+      links: new Float32Array(links),
+      pulses: [nodes[3], nodes[Math.floor(count / 2)], nodes[count - 4]].map(
+        (node) => node.toArray() as [number, number, number],
+      ),
+    }
+  }, [compact])
+
+  useFrame(({ clock }, delta) => {
+    if (!field.current || reducedMotion) return
+    const time = clock.elapsedTime
+    field.current.rotation.y = THREE.MathUtils.damp(
+      field.current.rotation.y,
+      Math.sin(time * 0.12) * 0.16 + pointer.x * 0.16,
+      2.4,
+      delta,
+    )
+    field.current.rotation.x = THREE.MathUtils.damp(
+      field.current.rotation.x,
+      pointer.y * -0.1,
+      2.4,
+      delta,
+    )
+    field.current.rotation.z = Math.sin(time * 0.08) * 0.035
+    field.current.position.x = THREE.MathUtils.damp(
+      field.current.position.x,
+      heroX * 0.72 + pointer.x * 0.12,
+      2.4,
+      delta,
+    )
+  })
+
+  return (
+    <group ref={field} position={[heroX * 0.72, 0.15, -1.65]} scale={compact ? 0.86 : 1}>
+      <points>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[network.points, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          color="#9d6cff"
+          size={compact ? 0.065 : 0.075}
+          transparent
+          opacity={0.76}
+          sizeAttenuation
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+      <lineSegments>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[network.links, 3]} />
+        </bufferGeometry>
+        <lineBasicMaterial
+          color="#7b4fd3"
+          transparent
+          opacity={0.28}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </lineSegments>
+      {network.pulses.map((position, index) => (
+        <NeuralPulse
+          key={index}
+          position={position}
+          phase={index * 2.1}
+          reducedMotion={reducedMotion}
+        />
+      ))}
+    </group>
+  )
+}
 
 function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const avatar = useRef<THREE.Group>(null)
@@ -11,11 +166,12 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const dragStartX = useRef(0)
   const dragStartRotation = useRef(0)
   const rotationOffset = useRef(0)
-  const { gl, pointer, size } = useThree()
+  const captureTarget = useRef<HTMLElement | null>(null)
+  const [cursor, setCursor] = useState('default')
+  const { pointer, size } = useThree()
   const { scene, animations } = useGLTF(avatarPath)
   const { actions } = useAnimations(animations, avatar)
-  const avatarX =
-    size.width < 700 ? 0.18 : size.width / size.height < 1.25 ? 0.8 : 1.12
+  const avatarX = getHeroX(size.width, size.height)
 
   useEffect(() => {
     const idle = actions[animations[0]?.name]
@@ -35,6 +191,13 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
       }
     })
   }, [scene])
+
+  useEffect(() => {
+    document.body.style.cursor = cursor
+    return () => {
+      document.body.style.cursor = 'default'
+    }
+  }, [cursor])
 
   useFrame((state, delta) => {
     if (!avatar.current || reducedMotion) return
@@ -58,8 +221,12 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
     dragging.current = true
     dragStartX.current = event.clientX
     dragStartRotation.current = rotationOffset.current
-    gl.domElement.setPointerCapture(event.pointerId)
-    gl.domElement.style.cursor = 'grabbing'
+    const target = event.nativeEvent.target
+    if (target instanceof HTMLElement) {
+      target.setPointerCapture(event.pointerId)
+      captureTarget.current = target
+    }
+    setCursor('grabbing')
   }
 
   const rotateAvatar = (event: ThreeEvent<PointerEvent>) => {
@@ -73,10 +240,11 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const stopDrag = (event: ThreeEvent<PointerEvent>) => {
     if (!dragging.current) return
     dragging.current = false
-    if (gl.domElement.hasPointerCapture(event.pointerId)) {
-      gl.domElement.releasePointerCapture(event.pointerId)
+    if (captureTarget.current?.hasPointerCapture(event.pointerId)) {
+      captureTarget.current.releasePointerCapture(event.pointerId)
     }
-    gl.domElement.style.cursor = 'grab'
+    captureTarget.current = null
+    setCursor('grab')
   }
 
   return (
@@ -94,10 +262,10 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
         onPointerUp={stopDrag}
         onPointerCancel={stopDrag}
         onPointerOver={() => {
-          gl.domElement.style.cursor = 'grab'
+          setCursor('grab')
         }}
         onPointerOut={() => {
-          if (!dragging.current) gl.domElement.style.cursor = 'default'
+          if (!dragging.current) setCursor('default')
         }}
       >
         <planeGeometry args={[2.4, 4]} />
@@ -143,6 +311,7 @@ export default function PortalScene({ reducedMotion }: { reducedMotion: boolean 
       />
       <directionalLight position={[-4, 2, 3]} intensity={2.1} color="#f0b85c" />
       <pointLight position={[0, -1, 3]} intensity={8} color="#b9ff3d" />
+      <NeuralBackdrop reducedMotion={reducedMotion} />
       <Avatar reducedMotion={reducedMotion} />
     </Canvas>
   )

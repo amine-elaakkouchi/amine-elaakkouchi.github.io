@@ -38,6 +38,7 @@ export type PortfolioData = {
     age: number
     location: string
     availability: string
+    heroDetails: { icon: string; label: string }[]
     intro: string
     about: string
     email: string
@@ -59,6 +60,11 @@ export const portfolio: PortfolioData = {
     age: 31,
     location: 'Casablanca, Morocco · Available worldwide',
     availability: 'Senior Game Developer',
+    heroDetails: [
+      { icon: '📍', label: 'Casablanca, Morocco' },
+      { icon: '🏅', label: 'Senior Game Developer' },
+      { icon: '🎮', label: 'Unity · C# · VR' },
+    ],
     intro:
       'I build engaging Unity experiences across games, VR, gamification, education, and brand activation.',
     about:
