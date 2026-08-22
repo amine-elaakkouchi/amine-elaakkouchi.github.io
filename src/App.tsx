@@ -5,12 +5,10 @@ import {
   ArrowDown,
   ArrowUpRight,
   Asterisk,
-  Gamepad2,
   Mail,
-  MousePointer2,
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { portfolio, type Project } from './data/portfolio'
+import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
 
@@ -64,19 +62,30 @@ function MagneticLink({
   )
 }
 
-function ProjectVisual({ project, compact = false }: { project: Project; compact?: boolean }) {
-  return (
-    <div
-      className={`project-visual project-visual--${project.id} ${compact ? 'project-visual--compact' : ''}`}
-      style={{ '--accent': project.accent } as React.CSSProperties}
-      aria-hidden="true"
-    >
-      <span className="visual-orbit" />
-      <span className="visual-core">{project.id.slice(0, 2).toUpperCase()}</span>
-      <span className="visual-grid" />
-      <span className="visual-caption">{project.status}</span>
-    </div>
+function GamePanel({ game }: { game: GameCard }) {
+  const content = (
+    <>
+      {game.image ? (
+        <img src={encodeURI(game.image)} alt="" />
+      ) : (
+        <span className="game-card-fallback" aria-hidden="true" />
+      )}
+      <span className="game-card-info">
+        <small>{game.tag}</small>
+        <strong>{game.title}</strong>
+      </span>
+    </>
   )
+
+  if (game.href) {
+    return (
+      <a className="game-card" href={game.href} target="_blank" rel="noreferrer">
+        {content}
+      </a>
+    )
+  }
+
+  return <article className="game-card">{content}</article>
 }
 
 function SectionIntro({
@@ -181,16 +190,6 @@ function App() {
         },
       })
 
-      gsap.to('.gallery-track', {
-        xPercent: -12,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.gallery-shell',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      })
     },
     { scope: main, dependencies: [reducedMotion] },
   )
@@ -277,81 +276,40 @@ function App() {
         </div>
 
         <section className="about section" id="about">
-          <SectionIntro eyebrow="Profile / 01" title="Designing the space between intention and impact." />
-          <div className="about-grid">
-            <p className="about-lead reveal">{portfolio.profile.about}</p>
-            <div className="roles">
-              {portfolio.roles.map((role) => (
-                <article className="role-card reveal" key={role.index}>
-                  <span>{role.index}</span>
-                  <h3>{role.title}</h3>
-                  <p>{role.description}</p>
-                  <Gamepad2 aria-hidden="true" />
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="work section" id="work">
-          <SectionIntro
-            eyebrow="Selected work / 02"
-            title="Games with a point of view."
-            copy="Selected prototypes and case studies spanning player systems, environmental storytelling, and world design."
-          />
-          <div className="featured-list">
-            {portfolio.projects.slice(0, 3).map((project, index) => (
-              <article className="featured-card reveal" key={project.id}>
-                <div className="featured-topline">
-                  <span>0{index + 1}</span>
-                  <span>{project.year}</span>
+          <div className="about-layout">
+            <aside className="about-side reveal">
+              <p className="eyebrow">
+                <Asterisk size={14} aria-hidden="true" />
+                About / 01
+              </p>
+              <h2>About me</h2>
+              <p>{portfolio.profile.about}</p>
+            </aside>
+            <div className="about-games" id="work">
+              <div className="game-block reveal">
+                <p className="eyebrow">A314LAB / 02</p>
+                <h3>Games I made at A314LAB</h3>
+                <div className="game-accordion">
+                  {portfolio.a314Games.map((game) => (
+                    <GamePanel key={game.id} game={game} />
+                  ))}
                 </div>
-                <ProjectVisual project={project} />
-                <div className="featured-content">
-                  <p className="project-type">{project.type}</p>
-                  <h3>{project.title}</h3>
-                  <p className="project-summary">{project.summary}</p>
-                  <div className="case-grid">
-                    <div><span>Challenge</span><p>{project.challenge}</p></div>
-                    <div><span>My contribution</span><p>{project.contribution}</p></div>
-                    <div><span>Outcome</span><p>{project.outcome}</p></div>
-                  </div>
-                  <ul className="tool-list" aria-label={`${project.title} tools`}>
-                    {project.tools.map((tool) => <li key={tool}>{tool}</li>)}
-                  </ul>
+              </div>
+              <div className="game-block reveal">
+                <p className="eyebrow">Other games / 03</p>
+                <h3>Personal and jam games</h3>
+                <div className="game-accordion">
+                  {portfolio.otherGames.map((game) => (
+                    <GamePanel key={game.id} game={game} />
+                  ))}
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="gallery-shell section" aria-labelledby="gallery-heading">
-          <div className="gallery-heading reveal">
-            <p className="eyebrow"><MousePointer2 size={14} /> Explore the archive</p>
-            <h2 id="gallery-heading">Other worlds,<br /><em>still in motion.</em></h2>
-          </div>
-          <div className="gallery-window">
-            <div className="gallery-track">
-              {[...portfolio.projects, ...portfolio.projects].map((project, index) => (
-                <article
-                  className="gallery-card"
-                  key={`${project.id}-${index}`}
-                  style={{ '--card-accent': project.accent } as React.CSSProperties}
-                >
-                  <ProjectVisual project={project} compact />
-                  <div>
-                    <span>{project.type.split(' · ')[0]}</span>
-                    <h3>{project.title}</h3>
-                    <p>{project.year} / {project.status}</p>
-                  </div>
-                </article>
-              ))}
+              </div>
             </div>
           </div>
         </section>
 
         <section className="skills section" id="skills">
-          <SectionIntro eyebrow="Toolkit / 03" title="Craft, code, and collaboration." />
+          <SectionIntro eyebrow="Toolkit / 04" title="Craft, code, and collaboration." />
           <div className="skills-grid">
             {portfolio.skills.map((skill, index) => (
               <article className="skill-group reveal" key={skill.group}>
@@ -367,7 +325,7 @@ function App() {
 
         <section className="experience section" id="experience">
           <SectionIntro
-            eyebrow="Résumé / 04"
+            eyebrow="Résumé / 05"
             title="Experience built in production."
             copy="Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing."
           />

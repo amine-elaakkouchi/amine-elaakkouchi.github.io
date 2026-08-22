@@ -31,6 +31,14 @@ export type Social = {
   href: string
 }
 
+export type GameCard = {
+  id: string
+  title: string
+  tag: string
+  image?: string
+  href?: string
+}
+
 export type PortfolioData = {
   profile: {
     name: string
@@ -46,6 +54,8 @@ export type PortfolioData = {
   }
   roles: Role[]
   projects: Project[]
+  a314Games: GameCard[]
+  otherGames: GameCard[]
   skills: { group: string; items: string[] }[]
   experience: Experience[]
   education: Experience[]
@@ -146,6 +156,71 @@ export const portfolio: PortfolioData = {
       tools: ['Unity', 'C#', 'Gameplay', 'UI / UX'],
       accent: '#8ca5ff',
       status: 'Game development',
+    },
+  ],
+  a314Games: [
+    {
+      id: 'city-runner',
+      title: 'City Runner',
+      tag: 'ALSA · Runner',
+      image: '/A314Games/CityRunner for the alsa company.jpg',
+    },
+    {
+      id: 'shopping-bee',
+      title: 'Shopping Bee',
+      tag: 'Cora · Adventure',
+      image: '/A314Games/d2bd7f16-ac38-403d-bf1e-94e2229c79d8.jpg',
+    },
+    {
+      id: 'foot-runner',
+      title: 'Foot Runner',
+      tag: 'A314LAB · Sports',
+      image: '/A314Games/FootRunner.png',
+    },
+    {
+      id: 'foot-shooter',
+      title: 'Foot Shooter',
+      tag: 'inwi · Sports',
+      image: '/A314Games/footshooter inwi.png',
+    },
+    {
+      id: 'shopping-runner',
+      title: 'Shopping Runner',
+      tag: 'Cora · Runner',
+      image: '/A314Games/Shopping Runner.png',
+    },
+  ],
+  otherGames: [
+    {
+      id: 'sniper-boy',
+      title: 'SniperBoy',
+      tag: '2D · Itch.io',
+      image: '/otherGames/sniper-boy.png',
+      href: 'https://amineel.itch.io/sniperboy',
+    },
+    {
+      id: 'sheep-scramble',
+      title: 'Sheep Scramble',
+      tag: '3D · Itch.io',
+      href: 'https://amineel.itch.io/3d-sheep-scramble',
+    },
+    {
+      id: 'vocal-block-shift',
+      title: 'VocalBlockShift',
+      tag: '2D · Itch.io',
+      href: 'https://amineel.itch.io/vocalblockshift',
+    },
+    {
+      id: 'bubble-bullets',
+      title: 'Bubble Bullets',
+      tag: 'Educational · Itch.io',
+      href: 'https://amineel.itch.io/bubble-bullets',
+    },
+    {
+      id: 'itch-profile',
+      title: 'More on itch.io',
+      tag: 'All games',
+      href: 'https://amineel.itch.io/',
     },
   ],
   skills: [
