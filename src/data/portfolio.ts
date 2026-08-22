@@ -34,6 +34,8 @@ export type Social = {
 export type PortfolioData = {
   profile: {
     name: string
+    heroName: string
+    age: number
     location: string
     availability: string
     intro: string
@@ -53,6 +55,8 @@ export type PortfolioData = {
 export const portfolio: PortfolioData = {
   profile: {
     name: 'Amine El Aakkouchi',
+    heroName: 'Amine ELAAKKOUCHI',
+    age: 31,
     location: 'Casablanca, Morocco · Available worldwide',
     availability: 'Senior Game Developer',
     intro:

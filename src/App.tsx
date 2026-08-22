@@ -234,6 +234,11 @@ function App() {
               {portfolio.profile.availability}
             </p>
           </div>
+          <div className="hero-identity">
+            <strong>{portfolio.profile.heroName}</strong>
+            <span>{portfolio.profile.age} years old</span>
+            <small>Drag left or right · 360°</small>
+          </div>
           <div className="hero-title" aria-label="Game developer, designer, world builder">
             <h1>
               <span className="hero-word">

@@ -231,12 +231,46 @@ ul {
   box-shadow: 0 0 14px var(--acid);
 }
 
+.hero-identity {
+  position: absolute;
+  top: 10.4rem;
+  right: 4vw;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 0.2rem;
+  pointer-events: none;
+  text-align: right;
+}
+
+.hero-identity strong {
+  font-size: clamp(0.85rem, 1.25vw, 1.15rem);
+  font-weight: 900;
+  letter-spacing: 0.035em;
+}
+
+.hero-identity span,
+.hero-identity small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-identity small {
+  margin-top: 0.45rem;
+  color: var(--acid);
+}
+
 .hero-title {
   position: absolute;
-  right: 4vw;
+  right: 1.5vw;
   bottom: 7vh;
-  left: 4vw;
+  left: 7vw;
   z-index: 2;
+  pointer-events: none;
 }
 
 .hero-title h1 {
@@ -1292,8 +1326,19 @@ footer > p {
     top: 5.8rem;
   }
 
+  .hero-identity {
+    top: 8.6rem;
+    right: 4vw;
+  }
+
+  .hero-identity small {
+    display: none;
+  }
+
   .hero-title {
+    right: 4vw;
     bottom: 10vh;
+    left: 4vw;
   }
 
   .hero-title h1 {

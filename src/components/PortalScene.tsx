@@ -1,5 +1,5 @@
 import { ContactShadows, Sparkles, useAnimations, useGLTF } from '@react-three/drei'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
@@ -7,9 +7,14 @@ const avatarPath = '/models/avatar.glb'
 
 function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const avatar = useRef<THREE.Group>(null)
-  const { pointer } = useThree()
+  const dragging = useRef(false)
+  const dragStartX = useRef(0)
+  const dragStartRotation = useRef(0)
+  const rotationOffset = useRef(0)
+  const { gl, pointer, size } = useThree()
   const { scene, animations } = useGLTF(avatarPath)
   const { actions } = useAnimations(animations, avatar)
+  const avatarX = size.width < 700 ? 0.18 : 0.8
 
   useEffect(() => {
     const idle = actions[animations[0]?.name]
@@ -34,7 +39,7 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
     if (!avatar.current || reducedMotion) return
     avatar.current.rotation.y = THREE.MathUtils.damp(
       avatar.current.rotation.y,
-      pointer.x * 0.16,
+      rotationOffset.current + (dragging.current ? 0 : pointer.x * 0.08),
       4,
       delta,
     )
@@ -47,11 +52,58 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
     avatar.current.position.y = -1.79 + Math.sin(state.clock.elapsedTime * 0.8) * 0.018
   })
 
+  const startDrag = (event: ThreeEvent<PointerEvent>) => {
+    event.stopPropagation()
+    dragging.current = true
+    dragStartX.current = event.clientX
+    dragStartRotation.current = rotationOffset.current
+    gl.domElement.setPointerCapture(event.pointerId)
+    gl.domElement.style.cursor = 'grabbing'
+  }
+
+  const rotateAvatar = (event: ThreeEvent<PointerEvent>) => {
+    if (!dragging.current || !avatar.current) return
+    event.stopPropagation()
+    rotationOffset.current =
+      dragStartRotation.current + (event.clientX - dragStartX.current) * 0.012
+    avatar.current.rotation.y = rotationOffset.current
+  }
+
+  const stopDrag = (event: ThreeEvent<PointerEvent>) => {
+    if (!dragging.current) return
+    dragging.current = false
+    if (gl.domElement.hasPointerCapture(event.pointerId)) {
+      gl.domElement.releasePointerCapture(event.pointerId)
+    }
+    gl.domElement.style.cursor = 'grab'
+  }
+
   return (
     <group>
-      <primitive ref={avatar} object={scene} position={[0, -1.79, 0]} scale={1.9} />
+      <primitive
+        ref={avatar}
+        object={scene}
+        position={[avatarX, -1.79, 0]}
+        scale={1.9}
+      />
+      <mesh
+        position={[avatarX, 0, 0.6]}
+        onPointerDown={startDrag}
+        onPointerMove={rotateAvatar}
+        onPointerUp={stopDrag}
+        onPointerCancel={stopDrag}
+        onPointerOver={() => {
+          gl.domElement.style.cursor = 'grab'
+        }}
+        onPointerOut={() => {
+          if (!dragging.current) gl.domElement.style.cursor = 'default'
+        }}
+      >
+        <planeGeometry args={[2.4, 4]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <ContactShadows
-        position={[0, -1.79, 0]}
+        position={[avatarX, -1.79, 0]}
         opacity={0.52}
         scale={5}
         blur={2.4}
