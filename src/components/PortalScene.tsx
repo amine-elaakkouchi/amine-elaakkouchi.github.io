@@ -6,8 +6,9 @@ import * as THREE from 'three'
 const avatarPath = '/models/avatar.glb'
 
 function getHeroX(width: number, height: number) {
-  if (width < 700) return 0.85
-  return width / height < 1.25 ? 1.5 : 2.2
+  const aspect = width / Math.max(height, 1)
+  const halfWidth = 7 * Math.tan(THREE.MathUtils.degToRad(18)) * aspect
+  return halfWidth * (width < 700 ? 0.5 : 0.78)
 }
 
 function seededRandom(seed: { value: number }) {
