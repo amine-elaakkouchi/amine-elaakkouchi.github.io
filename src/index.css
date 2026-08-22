@@ -294,6 +294,26 @@ ul {
   pointer-events: none;
 }
 
+.hero-word--fluid {
+  pointer-events: auto;
+  width: min(72vw, 58rem);
+}
+
+.fluid-word {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  cursor: none;
+}
+
+.fluid-word text {
+  font-family: inherit;
+  font-size: 210px;
+  font-weight: 900;
+  letter-spacing: -0.085em;
+}
+
 .hero-title h1 {
   display: flex;
   flex-direction: column;
@@ -423,10 +443,79 @@ ul {
 }
 
 .about-side h2,
-.game-block h3 {
+.game-block h3,
+.experience .section-intro h2 {
   margin: 0.7rem 0 1.1rem;
   font-size: clamp(1.8rem, 3vw, 3.2rem);
   letter-spacing: -0.05em;
+}
+
+.stroke-title {
+  display: block;
+  width: min(100%, 22rem);
+  overflow: visible;
+}
+
+.experience .stroke-title {
+  width: min(100%, 18rem);
+}
+
+.stroke-title text {
+  fill: transparent;
+  font-family: inherit;
+  font-size: 92px;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.2;
+  stroke-dasharray: 920;
+  stroke-dashoffset: 920;
+}
+
+.stroke-title--paper {
+  color: var(--paper);
+}
+
+.stroke-title--ink {
+  color: var(--ink);
+}
+
+.stroke-title-dot {
+  stroke: var(--acid);
+  stroke-linecap: round;
+  stroke-width: 22;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.stroke-title.is-drawn text {
+  animation: stroke-draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.stroke-title.is-drawn .stroke-title-dot {
+  animation: stroke-dot 0.35s ease 1.15s forwards;
+}
+
+@keyframes stroke-draw {
+  0% {
+    fill: transparent;
+    stroke-dashoffset: 920;
+  }
+  72% {
+    fill: transparent;
+  }
+  100% {
+    fill: color-mix(in srgb, currentColor 88%, transparent);
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes stroke-dot {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .about-side p:last-child {
@@ -1637,5 +1726,10 @@ footer > p {
 
   .gallery-track {
     transform: none !important;
+  }
+
+  .stroke-title text {
+    fill: color-mix(in srgb, currentColor 88%, transparent);
+    stroke-dashoffset: 0;
   }
 }

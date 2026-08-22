@@ -8,6 +8,8 @@ import {
   Mail,
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { FluidWord } from './components/FluidWord'
+import { StrokeTitle } from './components/StrokeTitle'
 import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
@@ -241,8 +243,10 @@ function App() {
           </div>
           <div className="hero-title" aria-label="Game developer, designer, world builder">
             <h1>
-              <span className="hero-word">
-                <span>Game</span>
+              <span className="hero-word hero-word--fluid">
+                <span>
+                  <FluidWord>GAME</FluidWord>
+                </span>
               </span>
               <span className="hero-word hero-word--outline">
                 <span>Developer <em>/ Designer</em></span>
@@ -282,7 +286,9 @@ function App() {
                 <Asterisk size={14} aria-hidden="true" />
                 About / 01
               </p>
-              <h2>About me</h2>
+              <h2>
+                <StrokeTitle text="About me" />
+              </h2>
               <p>{portfolio.profile.about}</p>
             </aside>
             <div className="about-games" id="work">
@@ -324,11 +330,18 @@ function App() {
         </section>
 
         <section className="experience section" id="experience">
-          <SectionIntro
-            eyebrow="Résumé / 05"
-            title="Experience built in production."
-            copy="Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing."
-          />
+          <header className="section-intro reveal">
+            <p className="eyebrow">
+              <Asterisk size={14} aria-hidden="true" />
+              Résumé / 05
+            </p>
+            <h2>
+              <StrokeTitle text="Résumé" tone="ink" />
+            </h2>
+            <p className="section-copy">
+              Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing.
+            </p>
+          </header>
           <div className="timeline">
             {[...portfolio.experience, ...portfolio.education].map((item, index) => (
               <article className="timeline-row reveal" key={`${item.period}-${item.role}`}>
