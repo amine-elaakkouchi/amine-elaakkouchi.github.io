@@ -261,17 +261,16 @@ function App() {
               <div className="marquee-group" key={group}>
                 <span>POLISHED CODE</span><Asterisk />
                 <span>GAME DEV</span><Asterisk />
-                <span>VR</span><Asterisk />
-                <span>XR</span><Asterisk />
                 <span>2D</span><Asterisk />
                 <span>3D</span><Asterisk />
+                <span>VR</span><Asterisk />
+                <span>XR</span><Asterisk />
                 <span>OPTIMISATION</span><Asterisk />
                 <span>TEAMWORK</span><Asterisk />
                 <span>GAME MANAGEMENT</span><Asterisk />
                 <span>DESIGN</span><Asterisk />
                 <span>PLAYABLE WORLDS</span><Asterisk />
-                <span>SYSTEMIC STORIES</span><Asterisk />
-                <span>MEANINGFUL SPACES</span><Asterisk />
+                <span>SYSTEMATIC FEATURES</span><Asterisk />
               </div>
             ))}
           </div>
