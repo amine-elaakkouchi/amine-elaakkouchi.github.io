@@ -53,30 +53,33 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
   const field = useRef<THREE.Group>(null)
   const { pointer, size } = useThree()
   const compact = size.width < 700
-  const heroX = getHeroX(size.width, size.height)
 
   const network = useMemo(() => {
-    const count = compact ? 26 : 48
+    const cols = compact ? 8 : 14
+    const rows = compact ? 6 : 8
     const seed = { value: 117 }
     const nodes: THREE.Vector3[] = []
+    const spreadX = compact ? 3.35 : 3.55
+    const spreadY = compact ? 2.9 : 3.15
 
-    for (let index = 0; index < count; index += 1) {
-      const angle = seededRandom(seed) * Math.PI * 2
-      const radius = Math.sqrt(seededRandom(seed))
-      const depth = seededRandom(seed) * 2 - 1
-      nodes.push(
-        new THREE.Vector3(
-          Math.cos(angle) * radius * (compact ? 2.15 : 2.8),
-          Math.sin(angle) * radius * 2.25 + 0.22,
-          depth * 1.25,
-        ),
-      )
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        const x = (col / (cols - 1) - 0.5) * spreadX * 2
+        const y = (row / (rows - 1) - 0.5) * spreadY * 2 + 0.12
+        nodes.push(
+          new THREE.Vector3(
+            x + (seededRandom(seed) - 0.5) * 0.42,
+            y + (seededRandom(seed) - 0.5) * 0.38,
+            (seededRandom(seed) - 0.5) * 1.35,
+          ),
+        )
+      }
     }
 
     const points = new Float32Array(nodes.flatMap((node) => node.toArray()))
     const links: number[] = []
-    const maxLinks = compact ? 42 : 92
-    const linkDistance = compact ? 1.3 : 1.15
+    const maxLinks = compact ? 110 : 260
+    const linkDistance = compact ? 1.28 : 1.18
 
     for (let first = 0; first < nodes.length && links.length / 6 < maxLinks; first += 1) {
       for (let second = first + 1; second < nodes.length; second += 1) {
@@ -87,12 +90,13 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
       }
     }
 
+    const pulseIndexes = compact
+      ? [3, 12, 28, 40]
+      : [6, 20, 48, 70, 90, 108]
     return {
       points,
       links: new Float32Array(links),
-      pulses: [nodes[3], nodes[Math.floor(count / 2)], nodes[count - 4]].map(
-        (node) => node.toArray() as [number, number, number],
-      ),
+      pulses: pulseIndexes.map((index) => nodes[index].toArray() as [number, number, number]),
     }
   }, [compact])
 
@@ -101,34 +105,34 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
     const time = clock.elapsedTime
     field.current.rotation.y = THREE.MathUtils.damp(
       field.current.rotation.y,
-      Math.sin(time * 0.12) * 0.16 + pointer.x * 0.16,
+      Math.sin(time * 0.12) * 0.12 + pointer.x * 0.1,
       2.4,
       delta,
     )
     field.current.rotation.x = THREE.MathUtils.damp(
       field.current.rotation.x,
-      pointer.y * -0.1,
+      pointer.y * -0.08,
       2.4,
       delta,
     )
-    field.current.rotation.z = Math.sin(time * 0.08) * 0.035
+    field.current.rotation.z = Math.sin(time * 0.08) * 0.03
     field.current.position.x = THREE.MathUtils.damp(
       field.current.position.x,
-      heroX * 0.72 + pointer.x * 0.12,
+      pointer.x * 0.14,
       2.4,
       delta,
     )
   })
 
   return (
-    <group ref={field} position={[heroX * 0.72, 0.15, -1.65]} scale={compact ? 0.86 : 1}>
+    <group ref={field} position={[0, 0.08, -0.85]} scale={compact ? 0.95 : 1.08}>
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[network.points, 3]} />
         </bufferGeometry>
         <pointsMaterial
           color="#9d6cff"
-          size={compact ? 0.065 : 0.075}
+          size={compact ? 0.08 : 0.095}
           transparent
           opacity={0.76}
           sizeAttenuation
