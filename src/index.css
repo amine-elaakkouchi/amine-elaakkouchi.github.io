@@ -353,7 +353,7 @@ ul {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: marquee 38s linear infinite;
 }
 
 .marquee-group {

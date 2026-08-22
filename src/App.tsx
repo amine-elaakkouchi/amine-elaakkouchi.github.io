@@ -259,7 +259,16 @@ function App() {
           <div className="marquee-track">
             {Array.from({ length: 2 }).map((_, group) => (
               <div className="marquee-group" key={group}>
-                <span>PLAYABLE WORLDS</span><Asterisk /><span>SYSTEMIC STORIES</span><Asterisk />
+                <span>POLISHED CODE</span><Asterisk />
+                <span>GAME DEV</span><Asterisk />
+                <span>VR</span><Asterisk />
+                <span>XR</span><Asterisk />
+                <span>2D</span><Asterisk />
+                <span>3D</span><Asterisk />
+                <span>MANAGEMENT</span><Asterisk />
+                <span>DESIGN</span><Asterisk />
+                <span>PLAYABLE WORLDS</span><Asterisk />
+                <span>SYSTEMIC STORIES</span><Asterisk />
                 <span>MEANINGFUL SPACES</span><Asterisk />
               </div>
             ))}
