@@ -321,7 +321,7 @@ ul {
   letter-spacing: -0.055em;
   white-space: nowrap;
   -webkit-text-stroke: 1.2px rgba(240, 241, 233, 0.78);
-  transform: none;
+  transform: translateX(30vw);
 }
 
 .hero-word--outline em {
