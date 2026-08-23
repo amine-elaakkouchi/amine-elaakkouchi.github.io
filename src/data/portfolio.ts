@@ -271,14 +271,14 @@ export const portfolio: PortfolioData = {
         'Developed educational and hyper-casual games in Unity, focusing on gameplay mechanics, UI, and user experience.',
     },
     {
-      period: 'March — July 2019',
+      period: 'March 2019 — July 2019',
       role: 'Development Intern',
       studio: 'Institut Pasteur · Casablanca',
       description:
         'Completed a professional development internship at Institut Pasteur in Casablanca.',
     },
     {
-      period: '2017 — 2018',
+      period: 'October 2017 — November 2018',
       role: 'Web Development Intern',
       studio: '6SOLUTIONS',
       description:

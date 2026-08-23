@@ -210,7 +210,7 @@ function App() {
         <div className="nav-links">
           <a href="#work">Work</a>
           <a href="#about">About</a>
-          <a href="#experience">Résumé</a>
+          <a href="#experience">Experience</a>
         </div>
         <a className="nav-contact" href="#contact" aria-label="Go to contact section">
           Let’s talk <ArrowUpRight size={15} aria-hidden="true" />
@@ -336,17 +336,31 @@ function App() {
           <header className="section-intro reveal">
             <p className="eyebrow">
               <Asterisk size={14} aria-hidden="true" />
-              Résumé / 05
+              Experience / 05
             </p>
             <h2>
-              <StrokeTitle text="Résumé" />
+              <StrokeTitle text="Professional experience" />
             </h2>
             <p className="section-copy">
               Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing.
             </p>
           </header>
           <div className="timeline">
-            {[...portfolio.experience, ...portfolio.education].map((item, index) => (
+            {portfolio.experience.map((item, index) => (
+              <article className="timeline-row reveal" key={`${item.period}-${item.role}`}>
+                <span className="timeline-index">0{index + 1}</span>
+                <p className="timeline-period">{item.period}</p>
+                <div>
+                  <h3>{item.role}</h3>
+                  <p className="timeline-studio">{item.studio}</p>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <h3 className="timeline-heading reveal">Formations &amp; diplomas</h3>
+          <div className="timeline">
+            {portfolio.education.map((item, index) => (
               <article className="timeline-row reveal" key={`${item.period}-${item.role}`}>
                 <span className="timeline-index">0{index + 1}</span>
                 <p className="timeline-period">{item.period}</p>

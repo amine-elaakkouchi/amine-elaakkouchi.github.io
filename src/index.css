@@ -464,7 +464,7 @@ ul {
 }
 
 .experience .stroke-title {
-  width: min(100%, 18rem);
+  width: min(100%, 38rem);
 }
 
 .stroke-title text {
@@ -1052,14 +1052,12 @@ ul {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 10% 0%, rgba(94, 231, 223, 0.16), transparent 38%),
-    radial-gradient(circle at 90% 18%, rgba(180, 144, 245, 0.14), transparent 34%),
-    #0b0e1a;
+    linear-gradient(#0d0f0c 0%, #111310 22%, #141614 100%);
   color: #fff;
 }
 
 .experience .eyebrow {
-  color: #5ee7df;
+  color: var(--acid);
 }
 
 .experience .section-copy {
@@ -1093,8 +1091,16 @@ ul {
   text-transform: uppercase;
 }
 
+.timeline-heading {
+  margin: 3.2rem 0 1.1rem;
+  color: var(--paper);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
 .timeline-index {
-  color: #5ee7df;
+  color: var(--acid);
 }
 
 .timeline-row h3 {
