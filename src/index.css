@@ -525,11 +525,70 @@ ul {
   }
 }
 
+.layered-title {
+  display: block;
+  height: 4.6rem;
+}
+
+.layered-title-stage {
+  position: relative;
+  display: block;
+  height: 100%;
+  perspective: 900px;
+  transform-style: preserve-3d;
+}
+
+.layered-title-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: layered-tilt 7s ease-in-out infinite alternate;
+}
+
+.layered-title-layer::after {
+  display: block;
+  color: #f6f7f1;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  text-shadow: 2px 0 8px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  content: attr(data-text);
+}
+
+.layered-title-layer:nth-child(1)::after { transform: translateZ(0); color: #fff; text-shadow: none; }
+.layered-title-layer:nth-child(2)::after { transform: translateZ(-1.4px); }
+.layered-title-layer:nth-child(3)::after { transform: translateZ(-2.8px); }
+.layered-title-layer:nth-child(4)::after { transform: translateZ(-4.2px); }
+.layered-title-layer:nth-child(5)::after { transform: translateZ(-5.6px); }
+.layered-title-layer:nth-child(6)::after { transform: translateZ(-7px); }
+.layered-title-layer:nth-child(7)::after { transform: translateZ(-8.4px); }
+.layered-title-layer:nth-child(8)::after { transform: translateZ(-9.8px); }
+.layered-title-layer:nth-child(9)::after { transform: translateZ(-11.2px); color: #cfd1c8; }
+.layered-title-layer:nth-child(10)::after { transform: translateZ(-12.6px); -webkit-text-stroke: 2px rgba(0, 0, 0, 0.22); }
+.layered-title-layer:nth-child(11)::after { transform: translateZ(-14px); -webkit-text-stroke: 8px rgba(10, 11, 10, 0.55); }
+.layered-title-layer:nth-child(12)::after { transform: translateZ(-15.4px); -webkit-text-stroke: 8px rgba(240, 241, 233, 0.16); }
+.layered-title-layer:nth-child(13)::after { transform: translateZ(-16.8px); -webkit-text-stroke: 10px rgba(199, 255, 67, 0.12); }
+.layered-title-layer:nth-child(14)::after { transform: translateZ(-18.2px); -webkit-text-stroke: 12px rgba(0, 0, 0, 0.12); }
+
+@keyframes layered-tilt {
+  from {
+    transform: rotateY(16deg) rotateX(10deg);
+  }
+  to {
+    transform: rotateY(-16deg) rotateX(-12deg);
+  }
+}
+
 .about-side p:last-child {
-  max-width: 28rem;
-  color: var(--muted);
-  font-size: clamp(1.02rem, 1.35vw, 1.2rem);
-  line-height: 1.65;
+  max-width: 30rem;
+  color: #f3f4ee;
+  font-size: clamp(1.18rem, 1.65vw, 1.42rem);
+  line-height: 1.7;
+  -webkit-text-stroke: 0.35px rgba(8, 9, 8, 0.38);
+  paint-order: stroke fill;
+  text-shadow: 0 0 0.55px rgba(255, 255, 255, 0.28);
 }
 
 .about-games {
@@ -1738,5 +1797,10 @@ footer > p {
   .stroke-title text {
     fill: color-mix(in srgb, currentColor 88%, transparent);
     stroke-dashoffset: 0;
+  }
+
+  .layered-title-layer {
+    animation: none;
+    transform: none;
   }
 }

@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { FluidWord } from './components/FluidWord'
+import { LayeredTitle } from './components/LayeredTitle'
 import { StrokeTitle } from './components/StrokeTitle'
 import { portfolio, type GameCard } from './data/portfolio'
 
@@ -289,7 +290,7 @@ function App() {
                 About / 01
               </p>
               <h2>
-                <StrokeTitle text="About me" />
+                <LayeredTitle text="About me" />
               </h2>
               <p>{portfolio.profile.about}</p>
             </aside>
