@@ -1049,27 +1049,39 @@ ul {
 }
 
 .experience {
-  background: var(--gold);
-  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(94, 231, 223, 0.16), transparent 38%),
+    radial-gradient(circle at 90% 18%, rgba(180, 144, 245, 0.14), transparent 34%),
+    #0b0e1a;
+  color: #fff;
 }
 
 .experience .eyebrow {
-  color: #493111;
+  color: #5ee7df;
 }
 
 .experience .section-copy {
-  color: #59421f;
+  color: rgba(255, 255, 255, 0.58);
 }
 
 .timeline {
-  border-top: 1px solid rgba(10, 11, 10, 0.28);
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1.4rem;
 }
 
 .timeline-row {
   display: grid;
-  min-height: 12rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(10, 11, 10, 0.28);
+  min-height: auto;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(18px);
   grid-template-columns: 5rem 0.55fr 1.4fr;
   gap: 2rem;
 }
@@ -1081,6 +1093,10 @@ ul {
   text-transform: uppercase;
 }
 
+.timeline-index {
+  color: #5ee7df;
+}
+
 .timeline-row h3 {
   font-size: clamp(1.45rem, 2.8vw, 3rem);
   letter-spacing: -0.055em;
@@ -1088,12 +1104,13 @@ ul {
 
 .timeline-studio {
   margin: 0.25rem 0 1.3rem;
+  color: #a8f08a;
   font-weight: 800;
 }
 
 .timeline-row div > p:last-child {
   max-width: 42rem;
-  color: #503a1a;
+  color: rgba(255, 255, 255, 0.58);
   line-height: 1.6;
 }
 
@@ -1104,9 +1121,12 @@ ul {
   align-items: center;
   gap: 2rem;
   padding: 1rem 1.2rem 1rem 1.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px);
+  color: #fff;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;

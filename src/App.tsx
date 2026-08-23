@@ -339,7 +339,7 @@ function App() {
               Résumé / 05
             </p>
             <h2>
-              <StrokeTitle text="Résumé" tone="ink" />
+              <StrokeTitle text="Résumé" />
             </h2>
             <p className="section-copy">
               Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing.
