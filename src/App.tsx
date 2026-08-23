@@ -10,6 +10,7 @@ import {
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { FluidWord } from './components/FluidWord'
 import { LayeredTitle } from './components/LayeredTitle'
+import { TessellationBg } from './components/TessellationBg'
 import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
@@ -218,6 +219,7 @@ function App() {
 
       <main id="main">
         <section className="hero" id="top">
+          <TessellationBg reducedMotion={reducedMotion} overlay />
           <div className="hero-scene" aria-label="Interactive animated 3D avatar">
             {webGL ? (
               <Suspense fallback={<div className="scene-fallback scene-fallback--loading" />}>
@@ -281,6 +283,8 @@ function App() {
           </div>
         </div>
 
+        <div className="dark-slides">
+          <TessellationBg reducedMotion={reducedMotion} />
         <section className="about section" id="about">
           <div className="about-layout">
             <aside className="about-side reveal">
@@ -428,6 +432,7 @@ function App() {
             </button>
           </div>
         </section>
+        </div>
       </main>
 
       <dialog className="contact-dialog" ref={contactDialog}>
