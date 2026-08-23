@@ -10,7 +10,6 @@ import {
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { FluidWord } from './components/FluidWord'
 import { LayeredTitle } from './components/LayeredTitle'
-import { StrokeTitle } from './components/StrokeTitle'
 import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
@@ -334,12 +333,8 @@ function App() {
 
         <section className="experience section" id="experience">
           <header className="section-intro reveal">
-            <p className="eyebrow">
-              <Asterisk size={14} aria-hidden="true" />
-              Experience / 05
-            </p>
             <h2>
-              <StrokeTitle text="Professional experience" />
+              <LayeredTitle text="Professional experience" className="layered-title--xl" />
             </h2>
             <p className="section-copy">
               Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing.
@@ -358,7 +353,9 @@ function App() {
               </article>
             ))}
           </div>
-          <h3 className="timeline-heading reveal">Formations &amp; diplomas</h3>
+          <h3 className="timeline-heading reveal">
+            <LayeredTitle text="Formations & diplomas" className="layered-title--xl" />
+          </h3>
           <div className="timeline">
             {portfolio.education.map((item, index) => (
               <article className="timeline-row reveal" key={`${item.period}-${item.role}`}>
