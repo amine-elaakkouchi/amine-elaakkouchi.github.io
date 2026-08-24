@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Mail,
+  Phone,
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { FluidWord } from './components/FluidWord'
@@ -62,9 +63,56 @@ function MagneticLink({
       className={`magnetic ${className}`}
       onPointerMove={move}
       onPointerLeave={reset}
+      target={href.startsWith('http') ? '_blank' : undefined}
+      rel={href.startsWith('http') ? 'noreferrer' : undefined}
+      download={href.endsWith('.pdf') ? 'CV_GameDev_Refreshed.pdf' : undefined}
     >
       {children}
     </a>
+  )
+}
+
+type CopiedKind = 'email' | 'discord' | 'linkedin' | 'phone'
+
+function DiscordIcon() {
+  return (
+    <svg className="discord-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"
+      />
+    </svg>
+  )
+}
+
+function CopyControl({
+  value,
+  kind,
+  copied,
+  onCopy,
+  label,
+}: {
+  value: string
+  kind: CopiedKind
+  copied: CopiedKind | null
+  onCopy: (value: string, kind: CopiedKind) => void
+  label: string
+}) {
+  return (
+    <>
+      <button
+        type="button"
+        className="copy-email"
+        onClick={() => onCopy(value, kind)}
+        aria-label={label}
+        title={label}
+      >
+        <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
+      </button>
+      <span className={`copy-status ${copied === kind ? 'copy-status--visible' : ''}`} role="status">
+        copied!
+      </span>
+    </>
   )
 }
 
@@ -175,9 +223,8 @@ function ExtraCircles({ images, reducedMotion }: { images: string[]; reducedMoti
 
 function App() {
   const main = useRef<HTMLDivElement>(null)
-  const contactDialog = useRef<HTMLDialogElement>(null)
   const linkedin = portfolio.socials.find((social) => social.label === 'LinkedIn')
-  const [copied, setCopied] = useState<'email' | 'discord' | null>(null)
+  const [copied, setCopied] = useState<CopiedKind | null>(null)
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
@@ -190,7 +237,7 @@ function App() {
     return () => media.removeEventListener('change', update)
   }, [])
 
-  const copyText = async (value: string, type: 'email' | 'discord') => {
+  const copyText = async (value: string, type: CopiedKind) => {
     try {
       await navigator.clipboard.writeText(value)
     } catch {
@@ -205,18 +252,6 @@ function App() {
     }
     setCopied(type)
     window.setTimeout(() => setCopied(null), 1800)
-  }
-
-  const sendContact = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const sender = String(data.get('email') ?? '')
-    const message = String(data.get('message') ?? '')
-    const subject = encodeURIComponent('Portfolio inquiry')
-    const body = encodeURIComponent(`From: ${sender}\n\n${message}`)
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.profile.email)}&su=${subject}&body=${body}`
-    contactDialog.current?.close()
-    window.open(gmailUrl, '_blank', 'noopener,noreferrer')
   }
 
   useGSAP(
@@ -451,102 +486,81 @@ function App() {
         <section className="contact section" id="contact">
           <div className="contact-orbit" aria-hidden="true"><span>AVAILABLE · COLLABORATE · SAY HELLO · </span></div>
           <p className="eyebrow reveal"><span className="status-dot" /> Have a world to build?</p>
-          <h2 className="reveal">Let’s make<br /><em>something felt.</em></h2>
+          <h2 className="reveal">Let’s make<br /><em>something playable.</em></h2>
           <div className="contact-actions reveal">
             {linkedin && (
+              <div className="contact-mail contact-mail--linkedin">
+                <a
+                  className="contact-email-trigger"
+                  href={linkedin.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="linkedin-glyph" aria-hidden="true">in</span>
+                  LinkedIn / aminelakk
+                </a>
+                <CopyControl
+                  value="aminelakk"
+                  kind="linkedin"
+                  copied={copied}
+                  onCopy={copyText}
+                  label="Copy LinkedIn name aminelakk"
+                />
+              </div>
+            )}
+            <div className="contact-mail contact-mail--email">
               <a
-                href={linkedin.href}
-                className="contact-mail contact-mail--linkedin"
+                className="contact-email-trigger"
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(portfolio.profile.email)}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="linkedin-glyph" aria-hidden="true">in</span>
-                LinkedIn / aminelakk
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            )}
-            <div className="contact-mail contact-mail--email">
-              <button
-                type="button"
-                className="contact-email-trigger"
-                onClick={() => contactDialog.current?.showModal()}
-              >
                 <Mail aria-hidden="true" />
                 Email me
-              </button>
-              <button
-                type="button"
-                className="copy-email"
-                onClick={() => copyText(portfolio.profile.email, 'email')}
-                aria-label={`Copy ${portfolio.profile.email}`}
-                title="Copy email address"
-              >
-                <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
-              </button>
-              <span className={`copy-status ${copied === 'email' ? 'copy-status--visible' : ''}`} role="status">
-                Copied
-              </span>
+              </a>
+              <CopyControl
+                value={portfolio.profile.email}
+                kind="email"
+                copied={copied}
+                onCopy={copyText}
+                label={`Copy ${portfolio.profile.email}`}
+              />
             </div>
-            <button
-              type="button"
-              className="contact-mail contact-mail--discord"
-              onClick={() => copyText(portfolio.profile.discord, 'discord')}
-              aria-label={`Copy Discord username ${portfolio.profile.discord}`}
-            >
-              <span className="discord-glyph" aria-hidden="true"><span /><span /></span>
-              Discord / {portfolio.profile.discord}
-              <span className="copy-glyph" aria-hidden="true"><span /><span /></span>
-              <span className={`copy-status ${copied === 'discord' ? 'copy-status--visible' : ''}`} role="status">
-                Copied
+            <div className="contact-mail contact-mail--discord">
+              <a
+                className="contact-email-trigger"
+                href="https://discord.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <DiscordIcon />
+                Discord / {portfolio.profile.discord}
+              </a>
+              <CopyControl
+                value={portfolio.profile.discord}
+                kind="discord"
+                copied={copied}
+                onCopy={copyText}
+                label={`Copy Discord username ${portfolio.profile.discord}`}
+              />
+            </div>
+            <div className="contact-mail contact-mail--phone">
+              <span className="contact-email-trigger">
+                <Phone aria-hidden="true" />
+                Phone
               </span>
-            </button>
+              <CopyControl
+                value={portfolio.profile.phone}
+                kind="phone"
+                copied={copied}
+                onCopy={copyText}
+                label="Copy phone number"
+              />
+            </div>
           </div>
         </section>
         </div>
       </main>
-
-      <dialog className="contact-dialog" ref={contactDialog}>
-        <button
-          type="button"
-          className="dialog-close"
-          onClick={() => contactDialog.current?.close()}
-          aria-label="Close contact form"
-        >
-          ×
-        </button>
-        <p className="eyebrow"><span className="status-dot" /> Start a conversation</p>
-        <h2>Tell me about<br /><em>your project.</em></h2>
-        <form className="contact-form" onSubmit={sendContact}>
-          <label>
-            Your email address
-            <input
-              type="email"
-              name="email"
-              placeholder="example@gmail.com"
-              autoComplete="email"
-              pattern="[a-zA-Z0-9._%+\-]+@gmail\.com"
-              title="Enter a Gmail address, such as example@gmail.com"
-              required
-            />
-          </label>
-          <label>
-            Your message
-            <textarea
-              name="message"
-              placeholder="What would you like to build?"
-              rows={7}
-              required
-            />
-          </label>
-          <button type="submit" className="send-message">
-            Send email
-            <ArrowUpRight aria-hidden="true" />
-          </button>
-        </form>
-        <p className="dialog-note">
-          Gmail will open with your message ready. Review it, then click Send.
-        </p>
-      </dialog>
 
       <footer>
         <div>

@@ -52,6 +52,7 @@ export type PortfolioData = {
     about: string
     email: string
     discord: string
+    phone: string
   }
   roles: Role[]
   projects: Project[]
@@ -83,6 +84,7 @@ export const portfolio: PortfolioData = {
       'A Senior Game Developer specialized in Unity and gamification, with professional experience creating educational, VR, hyper-casual, and marketing experiences. I combine gameplay development, UI, VFX, animation, and design to turn ideas into polished interactive work.',
     email: 'amine.elaakkouchi@gmail.com',
     discord: 'amineel95',
+    phone: '+212695079457',
   },
   roles: [
     {
@@ -366,7 +368,7 @@ export const portfolio: PortfolioData = {
   ],
   resume: {
     label: 'Request my résumé',
-    href: 'mailto:amine.elaakkouchi@gmail.com?subject=Résumé request',
+    href: '/CV_GameDev_Refreshed.pdf',
   },
   socials: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/aminelakk/' },
