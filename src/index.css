@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap");
 
 :root {
   color: #f0f1e9;
@@ -663,12 +664,34 @@ ul {
 
 .about-side p:last-child {
   max-width: 30rem;
-  color: #f3f4ee;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Anonymous Pro", monospace;
   font-size: clamp(1.18rem, 1.65vw, 1.42rem);
   line-height: 1.7;
-  -webkit-text-stroke: 0.35px rgba(8, 9, 8, 0.38);
-  paint-order: stroke fill;
-  text-shadow: 0 0 0.55px rgba(255, 255, 255, 0.28);
+}
+
+.typewriter {
+  font-family: "Anonymous Pro", monospace;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.typewriter-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.12em;
+  background: rgba(255, 255, 255, 0.75);
+  animation: blink-text-cursor 500ms steps(1) infinite;
+}
+
+.typewriter-caret--idle {
+  visibility: hidden;
+}
+
+@keyframes blink-text-cursor {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .about-games {
@@ -1252,36 +1275,133 @@ ul {
 
 .skills-grid {
   display: grid;
-  border-top: 1px solid var(--line);
-  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .skill-group {
-  min-height: 27rem;
-  padding: 1.5rem;
-  border-right: 1px solid var(--line);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 22rem;
+  padding: 1.6rem 1.45rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition:
+    transform 360ms cubic-bezier(0.22, 0.68, 0, 1.2),
+    box-shadow 360ms cubic-bezier(0.22, 0.68, 0, 1.2),
+    background 360ms ease;
 }
 
-.skill-group:first-child {
-  border-left: 1px solid var(--line);
+.skill-group::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.skill-group > span {
-  color: var(--acid);
-  font-size: 0.65rem;
+.skill-group::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.08) 100%);
+  opacity: 0;
+  transition: opacity 360ms ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.skill-group:hover,
+.skill-group:focus-within {
+  transform: translateY(-6px) scale(1.01);
+  background: rgba(0, 0, 0, 0.38);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.skill-group:hover::after,
+.skill-group:focus-within::after {
+  opacity: 1;
+}
+
+.skill-group > * {
+  position: relative;
+  z-index: 3;
 }
 
 .skill-group h3 {
-  margin: 5rem 0 2rem;
-  font-size: clamp(1.4rem, 2vw, 2rem);
-  letter-spacing: -0.04em;
+  margin: 0 0 1.15rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  color: #f4f4f1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 1.8vw, 1.85rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.skill-group ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
 }
 
 .skill-group li {
-  padding-block: 0.65rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #b4b8ae;
-  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.skill-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.skill-group--aqua li {
+  color: #5ee7df;
+  border: 1px solid rgba(94, 231, 223, 0.4);
+  background: rgba(94, 231, 223, 0.2);
+  box-shadow: 0 0 12px rgba(94, 231, 223, 0.18);
+}
+
+.skill-group--violet li {
+  color: #b490f5;
+  border: 1px solid rgba(180, 144, 245, 0.4);
+  background: rgba(180, 144, 245, 0.2);
+  box-shadow: 0 0 12px rgba(180, 144, 245, 0.18);
+}
+
+.skill-group--amber li {
+  color: #ffd27f;
+  border: 1px solid rgba(255, 210, 127, 0.4);
+  background: rgba(255, 210, 127, 0.2);
+  box-shadow: 0 0 12px rgba(255, 210, 127, 0.18);
+}
+
+.skill-group--lime li {
+  color: #a8f08a;
+  border: 1px solid rgba(168, 240, 138, 0.4);
+  background: rgba(168, 240, 138, 0.2);
+  box-shadow: 0 0 12px rgba(168, 240, 138, 0.18);
 }
 
 .experience {
@@ -1291,7 +1411,8 @@ ul {
   color: #fff;
 }
 
-.experience .section-intro {
+.experience .section-intro,
+.skills .section-intro {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1299,7 +1420,8 @@ ul {
   margin-bottom: clamp(3rem, 6vw, 5rem);
 }
 
-.experience .section-intro h2 {
+.experience .section-intro h2,
+.skills .section-intro h2 {
   max-width: none;
   width: 100%;
   margin: 0 0 1.1rem;
@@ -1307,7 +1429,7 @@ ul {
 
 .experience .section-copy {
   max-width: 42rem;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .experience .timeline-heading {
@@ -1376,7 +1498,7 @@ ul {
 
 .timeline-row div > p:last-child {
   max-width: 42rem;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
 }
 
@@ -1858,11 +1980,7 @@ footer > p {
   }
 
   .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .skill-group:nth-child(3) {
-    border-left: 1px solid var(--line);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2067,13 +2185,6 @@ footer > p {
   .skill-group,
   .skill-group:nth-child(3) {
     min-height: auto;
-    padding-block: 2rem;
-    border-left: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .skill-group h3 {
-    margin: 2rem 0 1.5rem;
   }
 
   .timeline-row {
@@ -2137,6 +2248,15 @@ footer > p {
 
   .layered-title-layer {
     animation: none;
+    transform: none;
+  }
+
+  .typewriter-caret {
+    animation: none;
+  }
+
+  .skill-group:hover,
+  .skill-group:focus-within {
     transform: none;
   }
 }

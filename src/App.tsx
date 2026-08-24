@@ -13,6 +13,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { FluidWord } from './components/FluidWord'
 import { LayeredTitle } from './components/LayeredTitle'
 import { TessellationBg } from './components/TessellationBg'
+import { TypewriterText } from './components/TypewriterText'
 import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
@@ -169,27 +170,6 @@ function ExtraCircles({ images, reducedMotion }: { images: string[]; reducedMoti
         })}
       </div>
     </div>
-  )
-}
-
-function SectionIntro({
-  eyebrow,
-  title,
-  copy,
-}: {
-  eyebrow: string
-  title: string
-  copy?: string
-}) {
-  return (
-    <header className="section-intro reveal">
-      <p className="eyebrow">
-        <Asterisk size={14} aria-hidden="true" />
-        {eyebrow}
-      </p>
-      <h2>{title}</h2>
-      {copy && <p className="section-copy">{copy}</p>}
-    </header>
   )
 }
 
@@ -376,7 +356,7 @@ function App() {
               <h2>
                 <LayeredTitle text="About me" />
               </h2>
-              <p>{portfolio.profile.about}</p>
+              <TypewriterText text={portfolio.profile.about} />
             </aside>
             <div className="about-games" id="work">
               <div className="game-block reveal">
@@ -399,14 +379,25 @@ function App() {
         </section>
 
         <section className="skills section" id="skills">
-          <SectionIntro eyebrow="Toolkit / 04" title="Craft, code, and collaboration." />
+          <header className="section-intro reveal">
+            <h2>
+              <LayeredTitle text="Craft, code, and collaboration." className="layered-title--xl" />
+            </h2>
+          </header>
           <div className="skills-grid">
             {portfolio.skills.map((skill, index) => (
-              <article className="skill-group reveal" key={skill.group}>
-                <span>0{index + 1}</span>
+              <article
+                className={`skill-group skill-group--${['aqua', 'violet', 'amber', 'lime'][index] ?? 'aqua'} reveal`}
+                key={skill.group}
+              >
                 <h3>{skill.group}</h3>
                 <ul>
-                  {skill.items.map((item) => <li key={item}>{item}</li>)}
+                  {skill.items.map((item) => (
+                    <li key={item}>
+                      <span className="skill-badge-dot" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </article>
             ))}
@@ -418,9 +409,10 @@ function App() {
             <h2>
               <LayeredTitle text="Professional experience" className="layered-title--xl" />
             </h2>
-            <p className="section-copy">
-              Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing.
-            </p>
+            <TypewriterText
+              className="section-copy"
+              text="Professional experience across Unity games, VR prototypes, gamification, educational projects, and interactive marketing."
+            />
           </header>
           <div className="timeline">
             {portfolio.experience.map((item, index) => (
@@ -430,7 +422,7 @@ function App() {
                 <div>
                   <h3>{item.role}</h3>
                   <p className="timeline-studio">{item.studio}</p>
-                  <p>{item.description}</p>
+                  <TypewriterText text={item.description} />
                 </div>
               </article>
             ))}
@@ -446,7 +438,7 @@ function App() {
                 <div>
                   <h3>{item.role}</h3>
                   <p className="timeline-studio">{item.studio}</p>
-                  <p>{item.description}</p>
+                  <TypewriterText text={item.description} />
                 </div>
               </article>
             ))}
