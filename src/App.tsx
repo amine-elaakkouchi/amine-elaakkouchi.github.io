@@ -67,16 +67,24 @@ function MagneticLink({
   )
 }
 
+function assetSrc(path: string) {
+  return path
+    .split('/')
+    .map((part) => encodeURIComponent(part))
+    .join('/')
+    .replace(/^\/?/, '/')
+}
+
 function GamePanel({ game }: { game: GameCard }) {
   const content = (
     <>
       {game.image ? (
-        <img className="game-card-cover" src={encodeURI(game.image)} alt="" />
+        <img className="game-card-cover" src={assetSrc(game.image)} alt="" />
       ) : (
         <span className="game-card-fallback" aria-hidden="true" />
       )}
       {game.showcase ? (
-        <img className="game-card-showcase" src={encodeURI(game.showcase)} alt="" />
+        <img className="game-card-showcase" src={assetSrc(game.showcase)} alt="" />
       ) : null}
       <span className="game-card-info">
         <small>{game.tag}</small>
@@ -377,14 +385,14 @@ function App() {
                 <GameRail games={portfolio.a314Games} />
                 <ExtraCircles images={portfolio.a314Extra} reducedMotion={reducedMotion} />
               </div>
-              <div className="game-block reveal">
-                <p className="eyebrow">Other games / 03</p>
-                <h3>Personal and jam games</h3>
-                <div className="game-accordion">
-                  {portfolio.otherGames.map((game) => (
-                    <GamePanel key={game.id} game={game} />
-                  ))}
-                </div>
+            </div>
+            <div className="game-block game-block--jam reveal">
+              <p className="eyebrow">Other games / 03</p>
+              <h3>Personal and jam games</h3>
+              <div className="game-accordion game-accordion--cubes">
+                {portfolio.otherGames.map((game) => (
+                  <GamePanel key={game.id} game={game} />
+                ))}
               </div>
             </div>
           </div>
