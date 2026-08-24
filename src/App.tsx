@@ -301,15 +301,21 @@ function App() {
 
       <nav className="site-nav" aria-label="Main navigation">
         <a className="nav-mark" href="#top" aria-label="Amine El Aakkouchi, home">
-          <img src="/ae-mark.svg" alt="" />
+          <span className="nav-mark-btn">
+            <svg className="nav-home" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M20 52 L50 24 L80 52" />
+              <path d="M34 50 V80 H66 V50" />
+              <path d="M44 80 V64 H56 V80" />
+            </svg>
+          </span>
         </a>
         <div className="nav-links">
-          <a href="#work">Work</a>
           <a href="#about">About</a>
+          <a href="#games">Games</a>
           <a href="#experience">Experience</a>
         </div>
         <a className="nav-contact" href="#contact" aria-label="Go to contact section">
-          Let’s talk <ArrowUpRight size={15} aria-hidden="true" />
+          Let’s talk
         </a>
       </nav>
 
@@ -401,7 +407,7 @@ function App() {
                 <ExtraCircles images={portfolio.a314Extra} reducedMotion={reducedMotion} />
               </div>
             </div>
-            <div className="game-block game-block--jam reveal">
+            <div className="game-block game-block--jam reveal" id="games">
               <p className="eyebrow">Other games / 03</p>
               <h3>Personal and jam games</h3>
               <div className="game-accordion game-accordion--cubes">
@@ -486,7 +492,10 @@ function App() {
         <section className="contact section" id="contact">
           <div className="contact-orbit" aria-hidden="true"><span>AVAILABLE · COLLABORATE · SAY HELLO · </span></div>
           <p className="eyebrow reveal"><span className="status-dot" /> Have a world to build?</p>
-          <h2 className="reveal">Let’s make<br /><em>something playable.</em></h2>
+          <h2 className="reveal">
+            <LayeredTitle text="Let’s make" className="layered-title--contact" />
+            <LayeredTitle text="something playable" className="layered-title--contact layered-title--gold" />
+          </h2>
           <div className="contact-actions reveal">
             {linkedin && (
               <div className="contact-mail contact-mail--linkedin">
@@ -526,6 +535,19 @@ function App() {
                 label={`Copy ${portfolio.profile.email}`}
               />
             </div>
+            <div className="contact-mail contact-mail--phone">
+              <span className="contact-email-trigger">
+                <Phone aria-hidden="true" />
+                Phone
+              </span>
+              <CopyControl
+                value={portfolio.profile.phone}
+                kind="phone"
+                copied={copied}
+                onCopy={copyText}
+                label="Copy phone number"
+              />
+            </div>
             <div className="contact-mail contact-mail--discord">
               <a
                 className="contact-email-trigger"
@@ -542,19 +564,6 @@ function App() {
                 copied={copied}
                 onCopy={copyText}
                 label={`Copy Discord username ${portfolio.profile.discord}`}
-              />
-            </div>
-            <div className="contact-mail contact-mail--phone">
-              <span className="contact-email-trigger">
-                <Phone aria-hidden="true" />
-                Phone
-              </span>
-              <CopyControl
-                value={portfolio.profile.phone}
-                kind="phone"
-                copied={copied}
-                onCopy={copyText}
-                label="Copy phone number"
               />
             </div>
           </div>
