@@ -69,10 +69,13 @@ function GamePanel({ game }: { game: GameCard }) {
   const content = (
     <>
       {game.image ? (
-        <img src={encodeURI(game.image)} alt="" />
+        <img className="game-card-cover" src={encodeURI(game.image)} alt="" />
       ) : (
         <span className="game-card-fallback" aria-hidden="true" />
       )}
+      {game.showcase ? (
+        <img className="game-card-showcase" src={encodeURI(game.showcase)} alt="" />
+      ) : null}
       <span className="game-card-info">
         <small>{game.tag}</small>
         <strong>{game.title}</strong>

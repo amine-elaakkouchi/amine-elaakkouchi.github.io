@@ -36,6 +36,7 @@ export type GameCard = {
   title: string
   tag: string
   image?: string
+  showcase?: string
   href?: string
 }
 
@@ -160,34 +161,39 @@ export const portfolio: PortfolioData = {
   ],
   a314Games: [
     {
+      id: 'shopping-runner',
+      title: 'Shopping Runner',
+      tag: 'Cora · Runner',
+      image: '/A314Games/C - Shopping Runner.png',
+      showcase: '/A314Games/C- showcase .jpg',
+    },
+    {
       id: 'city-runner',
       title: 'City Runner',
       tag: 'ALSA · Runner',
-      image: '/A314Games/CityRunner for the alsa company.jpg',
-    },
-    {
-      id: 'shopping-bee',
-      title: 'Shopping Bee',
-      tag: 'Cora · Adventure',
-      image: '/A314Games/d2bd7f16-ac38-403d-bf1e-94e2229c79d8.jpg',
-    },
-    {
-      id: 'foot-runner',
-      title: 'Foot Runner',
-      tag: 'A314LAB · Sports',
-      image: '/A314Games/FootRunner.png',
+      image: '/A314Games/A- CityRunner for the alsa company.jpg',
+      showcase: '/A314Games/A- CityRunner alsa showcase.jpg',
     },
     {
       id: 'foot-shooter',
       title: 'Foot Shooter',
       tag: 'inwi · Sports',
-      image: '/A314Games/footshooter inwi.png',
+      image: '/A314Games/B - footshooter inwi.png',
+      showcase: '/A314Games/B - footshooter inwi showcase .png',
     },
     {
-      id: 'shopping-runner',
-      title: 'Shopping Runner',
-      tag: 'Cora · Runner',
-      image: '/A314Games/Shopping Runner.png',
+      id: 'foot-runner',
+      title: 'Foot Runner',
+      tag: 'A314LAB · Sports',
+      image: '/A314Games/D - FootRunner .jpg',
+      showcase: '/A314Games/D - FootRunner showcase .png',
+    },
+    {
+      id: 'shopping-bee',
+      title: 'Shopping Bee',
+      tag: 'Cora · Adventure',
+      image: '/A314Games/E-shopping bee  .jpg',
+      showcase: '/A314Games/E-shopping bee showcase.png',
     },
   ],
   otherGames: [

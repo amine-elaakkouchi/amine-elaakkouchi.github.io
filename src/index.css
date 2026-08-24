@@ -672,7 +672,13 @@ ul {
   object-fit: cover;
   filter: grayscale(0.35) saturate(0.85);
   transform: scale(1.04);
-  transition: filter 480ms ease, transform 480ms ease;
+  transition: filter 480ms ease, transform 480ms ease, opacity 480ms ease;
+}
+
+.game-card-showcase {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
 }
 
 .game-card-fallback {
@@ -716,6 +722,11 @@ ul {
 .game-card:focus-visible img {
   filter: none;
   transform: scale(1.1);
+}
+
+.game-card:hover .game-card-showcase,
+.game-card:focus-visible .game-card-showcase {
+  opacity: 1;
 }
 
 .roles {
