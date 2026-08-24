@@ -56,6 +56,7 @@ export type PortfolioData = {
   roles: Role[]
   projects: Project[]
   a314Games: GameCard[]
+  a314Extra: string[]
   otherGames: GameCard[]
   skills: { group: string; items: string[] }[]
   experience: Experience[]
@@ -193,8 +194,25 @@ export const portfolio: PortfolioData = {
       title: 'Shopping Bee',
       tag: 'Cora · Adventure',
       image: '/A314Games/E-shopping bee  .jpg',
-      showcase: '/A314Games/E-shopping bee showcase.png',
+      showcase: '/A314Games/E - Shopping bee showcase .png',
     },
+    {
+      id: 'summer-runner',
+      title: 'Summer Runner',
+      tag: 'A314LAB · Runner',
+      image: '/A314Games/F- summer runner.png',
+      showcase: '/A314Games/F-summer runner showcase.png',
+    },
+  ],
+  a314Extra: [
+    '/A314Games/A314Games-Extra/5842676f-7b43-45b3-b336-60c5bd44b655.jpg',
+    '/A314Games/A314Games-Extra/5a8cc9cc-a171-45ee-841f-586826e45583.jpg',
+    '/A314Games/A314Games-Extra/5db0e880-56ff-452a-854f-6ab430ee57a1.jpg',
+    '/A314Games/A314Games-Extra/c48cc04f-2933-4870-bdb7-747683ee0a84.jpg',
+    '/A314Games/A314Games-Extra/c614a94a-8c5b-40c7-8808-6782a91c337b.jpg',
+    '/A314Games/A314Games-Extra/d4ab50f3-edb3-4bc3-b015-85fdd3c8f478.jpg',
+    '/A314Games/A314Games-Extra/de823710-a3a0-43c1-a672-c71171ebb2b6.jpg',
+    '/A314Games/A314Games-Extra/Capture d\'écran 2026-08-22 235947.png',
   ],
   otherGames: [
     {

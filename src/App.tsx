@@ -5,6 +5,8 @@ import {
   ArrowDown,
   ArrowUpRight,
   Asterisk,
+  ChevronLeft,
+  ChevronRight,
   Mail,
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
@@ -92,6 +94,74 @@ function GamePanel({ game }: { game: GameCard }) {
   }
 
   return <article className="game-card">{content}</article>
+}
+
+function GameRail({ games }: { games: GameCard[] }) {
+  const scroller = useRef<HTMLDivElement>(null)
+  const drag = useRef({ active: false, x: 0, scroll: 0 })
+
+  const moveBy = (direction: number) => {
+    const node = scroller.current
+    const card = node?.querySelector('.game-card')
+    if (!node || !card) return
+    node.scrollBy({ left: direction * (card.getBoundingClientRect().width + 9), behavior: 'smooth' })
+  }
+
+  return (
+    <div className="game-rail">
+      <button type="button" className="game-rail-btn" aria-label="Previous project" onClick={() => moveBy(-1)}>
+        <ChevronLeft size={18} />
+      </button>
+      <div
+        ref={scroller}
+        className="game-accordion game-accordion--rail"
+        onPointerDown={(event) => {
+          drag.current = { active: true, x: event.clientX, scroll: scroller.current?.scrollLeft ?? 0 }
+          event.currentTarget.setPointerCapture(event.pointerId)
+        }}
+        onPointerMove={(event) => {
+          if (!drag.current.active || !scroller.current) return
+          scroller.current.scrollLeft = drag.current.scroll - (event.clientX - drag.current.x)
+        }}
+        onPointerUp={() => {
+          drag.current.active = false
+        }}
+      >
+        {games.map((game) => (
+          <GamePanel key={game.id} game={game} />
+        ))}
+      </div>
+      <button type="button" className="game-rail-btn" aria-label="Next project" onClick={() => moveBy(1)}>
+        <ChevronRight size={18} />
+      </button>
+    </div>
+  )
+}
+
+function ExtraCircles({ images, reducedMotion }: { images: string[]; reducedMotion: boolean }) {
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    if (reducedMotion || images.length === 0) return
+    const id = window.setInterval(() => setTick((value) => value + 1), 2800)
+    return () => window.clearInterval(id)
+  }, [images.length, reducedMotion])
+
+  return (
+    <div className="game-extra">
+      <p className="eyebrow">&amp; more</p>
+      <div className="game-circles" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, index) => {
+          const src = images[(tick + index) % images.length]
+          return (
+            <span className="game-circle" key={index}>
+              <img className="game-circle-img" src={encodeURI(src)} alt="" key={src} />
+            </span>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 function SectionIntro({
@@ -304,11 +374,8 @@ function App() {
               <div className="game-block reveal">
                 <p className="eyebrow">A314LAB / 02</p>
                 <h3>Games I made at A314LAB</h3>
-                <div className="game-accordion">
-                  {portfolio.a314Games.map((game) => (
-                    <GamePanel key={game.id} game={game} />
-                  ))}
-                </div>
+                <GameRail games={portfolio.a314Games} />
+                <ExtraCircles images={portfolio.a314Extra} reducedMotion={reducedMotion} />
               </div>
               <div className="game-block reveal">
                 <p className="eyebrow">Other games / 03</p>
