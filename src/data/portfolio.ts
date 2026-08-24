@@ -233,7 +233,7 @@ export const portfolio: PortfolioData = {
       id: 'lost-found-space',
       title: 'Lost & Found Space',
       tag: 'Adventure · Itch.io',
-      image: '/otherGames/Lost & Found Space.png',
+      image: '/otherGames/lost-and-found-space.png',
       href: 'https://amineel.itch.io/lost-found-space',
     },
     {
