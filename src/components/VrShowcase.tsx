@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+const POST_URL = 'https://www.linkedin.com/feed/update/urn:li:activity:7234945429551927300/'
+
 export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion: boolean }) {
   const thumb = useRef<HTMLDivElement>(null)
   const shine = useRef<HTMLDivElement>(null)
@@ -41,6 +43,7 @@ export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion:
       void node.play()
     } else {
       node.pause()
+      window.open(POST_URL, '_blank', 'noopener,noreferrer')
     }
   }
 
