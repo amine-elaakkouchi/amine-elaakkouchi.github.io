@@ -15,6 +15,7 @@ import { FluidWord } from './components/FluidWord'
 import { LayeredTitle } from './components/LayeredTitle'
 import { TessellationBg } from './components/TessellationBg'
 import { TypewriterText } from './components/TypewriterText'
+import { VrShowcase } from './components/VrShowcase'
 import { portfolio, type GameCard } from './data/portfolio'
 
 const PortalScene = lazy(() => import('./components/PortalScene'))
@@ -487,6 +488,21 @@ function App() {
           <MagneticLink href={portfolio.resume.href} className="resume-link">
             {portfolio.resume.label} <Mail size={18} aria-hidden="true" />
           </MagneticLink>
+        </section>
+
+        <section className="vr section" id="vr">
+          <header className="vr-intro reveal">
+            <p className="eyebrow">
+              <Asterisk size={14} aria-hidden="true" />
+              VR · AR / 04
+            </p>
+            <h2>
+              <LayeredTitle text="My VR / AR makings" className="layered-title--xl" />
+            </h2>
+          </header>
+          <div className="reveal">
+            <VrShowcase src={assetSrc('vr-ar/vr-ar-showcase.mp4')} reducedMotion={reducedMotion} />
+          </div>
         </section>
 
         <section className="contact section" id="contact">

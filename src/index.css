@@ -1613,6 +1613,162 @@ ul {
   text-transform: uppercase;
 }
 
+.vr {
+  text-align: center;
+}
+
+.vr-intro .eyebrow {
+  justify-content: center;
+}
+
+.vr-intro h2 {
+  margin: 1rem auto clamp(3rem, 6vw, 5rem);
+}
+
+.vr-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem) 0;
+  perspective: 1100px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 65%);
+}
+
+.vr-thumb {
+  position: relative;
+  width: min(760px, 86vw);
+  aspect-ratio: 16 / 9;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  transition: transform 0.2s linear;
+}
+
+.vr-thumb::before,
+.vr-thumb::after {
+  position: absolute;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.vr-thumb::after {
+  content: 'Hover me';
+  top: -3.4rem;
+  width: 6rem;
+  margin-left: -3rem;
+  padding: 0.35rem 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  color: #e6e6e6;
+  font-size: 0.75rem;
+  text-align: center;
+  transform: translateZ(25px) translateY(20px);
+}
+
+.vr-thumb::before {
+  content: '';
+  top: -1.3rem;
+  margin-left: -10px;
+  border-style: solid;
+  border-width: 8px 10px 0 10px;
+  border-color: rgba(255, 255, 255, 0.4) transparent transparent transparent;
+  transform: translateZ(25px) translateY(20px);
+}
+
+.vr-thumb--idle::before,
+.vr-thumb--idle::after {
+  opacity: 1;
+  transform: translateZ(25px) translateY(0);
+}
+
+.vr-backlight {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 100px 40px rgba(255, 255, 255, 0.2);
+  transform: translateZ(-40px);
+}
+
+.vr-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: #000;
+  object-fit: cover;
+  transform: translateZ(20px);
+  cursor: pointer;
+}
+
+.vr-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateZ(20px);
+}
+
+.vr-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: #34495e;
+  opacity: 0.8;
+  transform: translateZ(60px);
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.vr-btn:hover,
+.vr-btn:focus-visible {
+  opacity: 1;
+}
+
+.vr-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+  transform: translateZ(-10px);
+}
+
+.vr-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -11px 0 0 -7px;
+  border-style: solid;
+  border-width: 11px 0 11px 20px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.75);
+}
+
+.vr-thumb--playing .vr-btn {
+  opacity: 0;
+}
+
+.vr-thumb--playing:hover .vr-btn {
+  opacity: 0.8;
+}
+
+.vr-thumb--playing .vr-btn::after {
+  width: 18px;
+  height: 22px;
+  margin: -11px 0 0 -9px;
+  border-width: 0 6px;
+  border-color: transparent rgba(255, 255, 255, 0.75);
+}
+
 .contact {
   min-height: 90vh;
   overflow: visible;
