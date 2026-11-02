@@ -175,10 +175,12 @@ function GameRail({ games }: { games: GameCard[] }) {
         className="game-accordion game-accordion--rail"
         onPointerDown={(event) => {
           drag.current = { active: true, x: event.clientX, scroll: scroller.current?.scrollLeft ?? 0 }
-          event.currentTarget.setPointerCapture(event.pointerId)
         }}
         onPointerMove={(event) => {
           if (!drag.current.active || !scroller.current) return
+          if (Math.abs(event.clientX - drag.current.x) > 6 && !event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.setPointerCapture(event.pointerId)
+          }
           scroller.current.scrollLeft = drag.current.scroll - (event.clientX - drag.current.x)
         }}
         onPointerUp={() => {

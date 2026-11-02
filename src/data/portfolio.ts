@@ -176,6 +176,7 @@ export const portfolio: PortfolioData = {
       tag: 'ALSA · Runner',
       image: '/A314Games/A- CityRunner for the alsa company.jpg',
       showcase: '/A314Games/A- CityRunner alsa showcase.jpg',
+      href: 'https://amineel.itch.io/cityrunneralsa?secret=CjSrSb3db5q8RpaPip4NazL0',
     },
     {
       id: 'foot-shooter',
@@ -183,6 +184,7 @@ export const portfolio: PortfolioData = {
       tag: 'inwi · Sports',
       image: '/A314Games/B - footshooter inwi.png',
       showcase: '/A314Games/B - footshooter inwi showcase .png',
+      href: 'https://amineel.itch.io/footshooter?secret=qP3NyJ8Ubbjnu3zTRTEkD9Ft8',
     },
     {
       id: 'foot-runner',
@@ -197,6 +199,7 @@ export const portfolio: PortfolioData = {
       tag: 'Cora · Adventure',
       image: '/A314Games/E-shopping bee  .jpg',
       showcase: '/A314Games/E - Shopping bee showcase .png',
+      href: 'https://amineel.itch.io/beeshoprunner?secret=z9toTBqgSiitla3VyBBg29c3d0',
     },
     {
       id: 'summer-runner',
