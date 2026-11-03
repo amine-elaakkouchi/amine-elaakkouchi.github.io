@@ -188,10 +188,7 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
         .map((clip) => actions[clip.name])
         .filter((action): action is THREE.AnimationAction => Boolean(action))
     const greetings = toActions(animations.filter((clip) => clip.name.startsWith('Greeting')))
-    const extras = toActions(animations.filter((clip) => clip !== idleClip && !clip.name.startsWith('Greeting')))
-    const wave = animations.find((clip) => clip.name.startsWith('GreetingWave'))
-    if (wave) actions[wave.name]?.setEffectiveTimeScale(0.5)
-    let timer = 0
+    const extras = toActions(animations.filter((clip) => clip !== idleClip && !clip.name.startsWith('Greeting')))    let timer = 0
     let lastExtraAt = performance.now()
     let lastExtra: THREE.AnimationAction | null = null
 
