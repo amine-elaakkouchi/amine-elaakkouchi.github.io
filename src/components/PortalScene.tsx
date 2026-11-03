@@ -175,18 +175,61 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
   const [cursor, setCursor] = useState('default')
   const { pointer, size } = useThree()
   const { scene, animations } = useGLTF(avatarPath)
-  const { actions } = useAnimations(animations, avatar)
+  const { actions, mixer } = useAnimations(animations, avatar)
   const avatarX = getHeroX(size.width, size.height)
 
   useEffect(() => {
-    const idle = actions[animations[0]?.name]
+    const idleClip = animations.find((clip) => clip.name.startsWith('Idle')) ?? animations[0]
+    const idle = idleClip ? actions[idleClip.name] : null
     if (!idle || reducedMotion) return
 
+    const greetClip = animations.find((clip) => clip.name.startsWith('Greeting'))
+    const greeting = greetClip ? actions[greetClip.name] : null
+    const extras = animations
+      .filter((clip) => clip !== idleClip && clip !== greetClip)
+      .map((clip) => actions[clip.name])
+      .filter((action): action is THREE.AnimationAction => Boolean(action))
+    let timer = 0
+    let lastExtraAt = performance.now()
+    let lastExtra: THREE.AnimationAction | null = null
+
+    const play = (action: THREE.AnimationAction) => {
+      const repeats = Math.max(1, Math.ceil(6 / action.getClip().duration))
+      action.reset().setLoop(THREE.LoopRepeat, repeats)
+      action.clampWhenFinished = true
+      action.crossFadeFrom(idle, 0.5, false).play()
+    }
+
+    const schedule = () => {
+      timer = window.setTimeout(() => {
+        const pool = extras.length > 1 ? extras.filter((action) => action !== lastExtra) : extras
+        if (pool.length > 0 && performance.now() - lastExtraAt >= 30000) {
+          lastExtra = pool[Math.floor(Math.random() * pool.length)]
+          play(lastExtra)
+        } else if (greeting) {
+          play(greeting)
+        } else {
+          schedule()
+        }
+      }, 8000 + Math.random() * 4000)
+    }
+
+    const onFinished = (event: { action: THREE.AnimationAction }) => {
+      if (event.action === idle) return
+      if (event.action !== greeting) lastExtraAt = performance.now()
+      idle.reset().crossFadeFrom(event.action, 0.5, false).play()
+      schedule()
+    }
+
+    mixer.addEventListener('finished', onFinished)
     idle.reset().fadeIn(0.45).play()
+    schedule()
     return () => {
+      window.clearTimeout(timer)
+      mixer.removeEventListener('finished', onFinished)
       idle.fadeOut(0.25)
     }
-  }, [actions, animations, reducedMotion])
+  }, [actions, animations, mixer, reducedMotion])
 
   useEffect(() => {
     scene.traverse((child) => {
