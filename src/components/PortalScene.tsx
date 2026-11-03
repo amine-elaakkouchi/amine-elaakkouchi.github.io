@@ -183,18 +183,18 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
     const idle = idleClip ? actions[idleClip.name] : null
     if (!idle || reducedMotion) return
 
-    const greetClip = animations.find((clip) => clip.name.startsWith('Greeting'))
-    const greeting = greetClip ? actions[greetClip.name] : null
-    const extras = animations
-      .filter((clip) => clip !== idleClip && clip !== greetClip)
-      .map((clip) => actions[clip.name])
-      .filter((action): action is THREE.AnimationAction => Boolean(action))
+    const toActions = (clips: THREE.AnimationClip[]) =>
+      clips
+        .map((clip) => actions[clip.name])
+        .filter((action): action is THREE.AnimationAction => Boolean(action))
+    const greetings = toActions(animations.filter((clip) => clip.name.startsWith('Greeting')))
+    const extras = toActions(animations.filter((clip) => clip !== idleClip && !clip.name.startsWith('Greeting')))
     let timer = 0
     let lastExtraAt = performance.now()
     let lastExtra: THREE.AnimationAction | null = null
 
     const play = (action: THREE.AnimationAction) => {
-      const repeats = Math.max(1, Math.ceil(6 / action.getClip().duration))
+      const repeats = greetings.includes(action) ? 1 : Math.max(1, Math.ceil(6 / action.getClip().duration))
       action.reset().setLoop(THREE.LoopRepeat, repeats)
       action.clampWhenFinished = true
       action.crossFadeFrom(idle, 0.5, false).play()
@@ -206,8 +206,8 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
         if (pool.length > 0 && performance.now() - lastExtraAt >= 30000) {
           lastExtra = pool[Math.floor(Math.random() * pool.length)]
           play(lastExtra)
-        } else if (greeting) {
-          play(greeting)
+        } else if (greetings.length > 0) {
+          play(greetings[Math.floor(Math.random() * greetings.length)])
         } else {
           schedule()
         }
@@ -216,7 +216,7 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
 
     const onFinished = (event: { action: THREE.AnimationAction }) => {
       if (event.action === idle) return
-      if (event.action !== greeting) lastExtraAt = performance.now()
+      if (!greetings.includes(event.action)) lastExtraAt = performance.now()
       idle.reset().crossFadeFrom(event.action, 0.5, false).play()
       schedule()
     }
