@@ -1,3 +1,4 @@
+import { Volume2, VolumeX } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 const POST_URL = 'https://www.linkedin.com/feed/update/urn:li:activity:7234945429551927300/'
@@ -7,6 +8,7 @@ export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion:
   const shine = useRef<HTMLDivElement>(null)
   const video = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(true)
   const [idle, setIdle] = useState(false)
   const touched = useRef(false)
 
@@ -16,6 +18,10 @@ export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion:
     }, 8000)
     return () => window.clearTimeout(id)
   }, [])
+
+  useEffect(() => {
+    if (video.current) video.current.muted = muted
+  }, [muted])
 
   const tilt = (event: React.PointerEvent<HTMLDivElement>) => {
     touched.current = true
@@ -47,6 +53,11 @@ export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion:
     }
   }
 
+  const toggleMute = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+    setMuted((value) => !value)
+  }
+
   return (
     <div className="vr-stage">
       <div
@@ -63,11 +74,20 @@ export function VrShowcase({ src, reducedMotion }: { src: string; reducedMotion:
           preload="metadata"
           playsInline
           loop
+          muted
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onClick={toggle}
         />
         <div ref={shine} className="vr-shine" aria-hidden="true" />
+        <button
+          type="button"
+          className="vr-mute"
+          onClick={toggleMute}
+          aria-label={muted ? 'Unmute VR and AR showreel' : 'Mute VR and AR showreel'}
+        >
+          {muted ? <VolumeX size={18} aria-hidden="true" /> : <Volume2 size={18} aria-hidden="true" />}
+        </button>
         <button
           type="button"
           className="vr-btn"

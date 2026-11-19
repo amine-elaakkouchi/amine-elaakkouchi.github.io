@@ -1613,16 +1613,9 @@ ul {
   text-transform: uppercase;
 }
 
-.vr {
-  text-align: center;
-}
-
-.vr-intro .eyebrow {
-  justify-content: center;
-}
-
-.vr-intro h2 {
-  margin: 1rem auto clamp(3rem, 6vw, 5rem);
+.game-block--vr .vr-stage {
+  padding: 0.4rem 0 1.2rem;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 65%);
 }
 
 .vr-stage {
@@ -1709,6 +1702,28 @@ ul {
   overflow: hidden;
   pointer-events: none;
   transform: translateZ(20px);
+}
+
+.vr-mute {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(20, 24, 32, 0.72);
+  color: #f4f4f4;
+  transform: translateZ(70px);
+  cursor: pointer;
+}
+
+.vr-mute:hover,
+.vr-mute:focus-visible {
+  background: rgba(20, 24, 32, 0.9);
 }
 
 .vr-btn {

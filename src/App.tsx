@@ -419,6 +419,14 @@ function App() {
                 ))}
               </div>
             </div>
+            <div className="game-block game-block--jam game-block--vr reveal" id="vr">
+              <p className="eyebrow">
+                <Asterisk size={14} aria-hidden="true" />
+                VR · AR / 04
+              </p>
+              <h3>My VR / AR makings</h3>
+              <VrShowcase src={assetSrc('vr-ar/vr-ar-showcase.mp4')} reducedMotion={reducedMotion} />
+            </div>
           </div>
         </section>
 
@@ -490,21 +498,6 @@ function App() {
           <MagneticLink href={portfolio.resume.href} className="resume-link">
             {portfolio.resume.label} <Mail size={18} aria-hidden="true" />
           </MagneticLink>
-        </section>
-
-        <section className="vr section" id="vr">
-          <header className="vr-intro reveal">
-            <p className="eyebrow">
-              <Asterisk size={14} aria-hidden="true" />
-              VR · AR / 04
-            </p>
-            <h2>
-              <LayeredTitle text="My VR / AR makings" className="layered-title--xl" />
-            </h2>
-          </header>
-          <div className="reveal">
-            <VrShowcase src={assetSrc('vr-ar/vr-ar-showcase.mp4')} reducedMotion={reducedMotion} />
-          </div>
         </section>
 
         <section className="contact section" id="contact">
