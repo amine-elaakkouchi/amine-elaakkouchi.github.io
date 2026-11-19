@@ -43,6 +43,7 @@ function NeuralPulse({
         color="#b38aff"
         transparent
         opacity={reducedMotion ? 0.42 : 0.3}
+        depthTest
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
@@ -71,7 +72,7 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
           new THREE.Vector3(
             x + (seededRandom(seed) - 0.5) * 0.42,
             y + (seededRandom(seed) - 0.5) * 0.38,
-            (seededRandom(seed) - 0.5) * 1.35,
+            (seededRandom(seed) - 0.5) * 0.35,
           ),
         )
       }
@@ -126,7 +127,7 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
   })
 
   return (
-    <group ref={field} position={[0, 0.08, -0.85]} scale={compact ? 0.95 : 1.08}>
+    <group ref={field} position={[0, 0.08, -2.45]} scale={compact ? 0.95 : 1.08} renderOrder={-1}>
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[network.points, 3]} />
@@ -137,6 +138,7 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
           transparent
           opacity={0.76}
           sizeAttenuation
+          depthTest
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />
@@ -149,6 +151,7 @@ function NeuralBackdrop({ reducedMotion }: { reducedMotion: boolean }) {
           color="#7b4fd3"
           transparent
           opacity={0.28}
+          depthTest
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />
@@ -236,6 +239,7 @@ function Avatar({ reducedMotion }: { reducedMotion: boolean }) {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true
         child.receiveShadow = true
+        child.renderOrder = 2
       }
     })
   }, [scene])
