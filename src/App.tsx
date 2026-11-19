@@ -419,6 +419,15 @@ function App() {
                 ))}
               </div>
             </div>
+            <div className="game-block game-block--jam game-block--playstore reveal" id="playstore">
+              <p className="eyebrow">Play Store / 03b</p>
+              <h3>Play Store games</h3>
+              <div className="game-accordion game-accordion--cubes game-accordion--playstore">
+                {portfolio.playStoreGames.map((game) => (
+                  <GamePanel key={game.id} game={game} />
+                ))}
+              </div>
+            </div>
             <div className="game-block game-block--jam game-block--vr reveal" id="vr">
               <p className="eyebrow">
                 <Asterisk size={14} aria-hidden="true" />

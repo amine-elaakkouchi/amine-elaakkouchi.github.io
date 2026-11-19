@@ -1018,6 +1018,21 @@ ul {
   grid-column: 1;
 }
 
+.game-accordion--playstore {
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 13.5rem));
+  justify-content: start;
+}
+
+.game-accordion--playstore .game-card,
+.game-accordion--playstore .game-card:last-child {
+  grid-column: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.game-accordion--playstore .game-card img {
+  object-fit: cover;
+}
+
 .roles {
   border-top: 1px solid var(--line);
 }

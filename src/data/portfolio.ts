@@ -59,6 +59,7 @@ export type PortfolioData = {
   a314Games: GameCard[]
   a314Extra: string[]
   otherGames: GameCard[]
+  playStoreGames: GameCard[]
   skills: { group: string; items: string[] }[]
   experience: Experience[]
   education: Experience[]
@@ -275,6 +276,15 @@ export const portfolio: PortfolioData = {
       tag: 'All games',
       image: '/otherGames/More on itch.jpg',
       href: 'https://amineel.itch.io/',
+    },
+  ],
+  playStoreGames: [
+    {
+      id: 'border-scan-control',
+      title: 'BorderScanControl',
+      tag: 'Play Store · Casual',
+      image: '/playStore/border-scan-control.png',
+      href: 'https://play.google.com/store/apps/details?id=com.aomigames.borderscancontrol&hl=en_IE',
     },
   ],
   skills: [
